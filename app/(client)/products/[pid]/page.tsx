@@ -18,7 +18,8 @@ async function getProduct(pid: number) {
   return product
 }
 
-const ProductPage = async ({ params: {pid} } : Props) => {
+const ProductPage = async (props : Props) => {
+  const { params: { pid } } = props
   const product = await getProduct(pid)
 
   return (
@@ -32,19 +33,13 @@ const ProductPage = async ({ params: {pid} } : Props) => {
       </h3>
       <div className='productDetail'>
         <Image src={product.image} width={531} height={324} alt={product.name} className='productImage' />
-        <h2>
-          {product.name}
-        </h2>
-        <p className='desc'>
-          {product.desc}
-        </p>
+        <h2>{product.name}</h2>
+        <p className='desc'>{product.desc}</p>
         <h4 className='inventory'>
           Inventory : {(product.inventory > 3) ? product.inventory : `Only ${product.inventory} Left!`}
         </h4>
-        <h4 className='price'>
-          ${product.price}
-        </h4>
-        < AddToCart />
+        <h4 className='price'>${product.price}</h4>
+        <AddToCart />
       </div>
     </main >
   )

@@ -5,12 +5,12 @@ import Link from 'next/link'
 import Image from 'next/image'
 import type { Product } from '@/typings'
 
-interface Props {
-  products: Product[];
+type Props = {
+  products: Product[] | null;
 }
 
 export default function ProductList(props: Props) {
-  const { products }: { products: Product[] } = props
+  const { products }: { products: Product[] | null } = props
   const onClickHandler = (e: React.MouseEvent) => {
     e.preventDefault();
   }
@@ -31,5 +31,3 @@ export default function ProductList(props: Props) {
     </div>
   )
 }
-
-// export default ProductList

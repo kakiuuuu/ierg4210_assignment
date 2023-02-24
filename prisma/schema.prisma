@@ -13,7 +13,7 @@ datasource db {
 model Product {
   pid       Int       @id @default(autoincrement())
   cid       Int
-  name      String
+  name      String    @db.VarChar(15)
   price     Float
   desc      String
   image     String
@@ -25,6 +25,6 @@ model Product {
 
 model Categorie {
   cid     Int       @id @default(autoincrement())
-  product Product[]
   name    String
+  products Product[]
 }

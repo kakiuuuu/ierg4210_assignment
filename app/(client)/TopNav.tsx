@@ -18,7 +18,7 @@ export default async function TopNav() {
       <ul className="navBar">
         <Link href={"/"}><li className={"li"}>All</li></Link>
         {categories.map((categorie) => (
-          <Link href={"/"} key={categorie.cid}><li className={"li"}>{categorie.name}</li></Link>
+          <Link href={`/categories/${categorie.cid}`} key={categorie.cid}><li className={"li"}>{categorie.name}</li></Link>
         ))}
       </ul>
     </nav>

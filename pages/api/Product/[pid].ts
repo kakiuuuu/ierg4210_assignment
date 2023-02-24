@@ -7,7 +7,6 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    if (!req.query.pid) throw new Error('????')
     let pid = Number(req.query.pid)
     const productsRc = await prisma.product.findUnique({
       where: {

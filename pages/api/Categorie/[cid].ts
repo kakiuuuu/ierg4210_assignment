@@ -7,17 +7,16 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    if (!req.query.pid) throw new Error('????')
-    let pid = Number(req.query.pid)
-    const productsRc = await prisma.product.findUnique({
+    let cid = Number(req.query.cid)
+    const categorieRc = await prisma.categorie.findUnique({
       where: {
-        pid
+        cid
       },
       include: {
-        categorie: true,
+        products: true,
       },
     })
-    return res.status(200).json(productsRc)
+    return res.status(200).json(categorieRc)
   } catch (error) {
     return res.status(500).json(error)
   }

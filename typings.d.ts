@@ -1,6 +1,7 @@
 export type Categorie = {
   cid: number,
   name: string,
+  products: Product[]?
 }
 
 export type Product = {
