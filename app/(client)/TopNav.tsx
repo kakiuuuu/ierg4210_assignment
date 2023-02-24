@@ -1,6 +1,4 @@
 import Link from 'next/link'
-import './page.module.scss'
-import styles from './page.module.scss'
 import type { Categorie } from '@/typings'
 
 
@@ -17,7 +15,7 @@ export default async function TopNav() {
   const categories: Categorie[] = await getCategories()
   return (
     <nav>
-      <ul className={styles.navBar}>
+      <ul className="navBar">
         <Link href={"/"}><li className={"li"}>All</li></Link>
         {categories.map((categorie) => (
           <Link href={"/"} key={categorie.cid}><li className={"li"}>{categorie.name}</li></Link>

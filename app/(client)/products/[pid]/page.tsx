@@ -15,7 +15,6 @@ async function getProduct(pid: number) {
     throw new Error('Failed to fetch data');
   }
   const product: Product = await res.json()
-  console.log('product<<<>>', product)
   return product
 }
 
@@ -23,8 +22,7 @@ const ProductPage = async ({ params: {pid} } : Props) => {
   const product = await getProduct(pid)
 
   return (
-    <div >
-      {/* <Sidebar /> */}
+    <main >
       <h3>
         <Link href={'/'}>Home</Link>
         {' > '}
@@ -48,7 +46,7 @@ const ProductPage = async ({ params: {pid} } : Props) => {
         </h4>
         < AddToCart />
       </div>
-    </div >
+    </main >
   )
 }
 

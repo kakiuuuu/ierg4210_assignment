@@ -1,5 +1,5 @@
 import '@/styles/globals.scss'
-import './page.module.scss'
+import '@/styles/general.scss'
 import Header from './Header'
 import Footer from './Footer'
 export default function RootLayout({
