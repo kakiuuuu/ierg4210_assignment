@@ -1,7 +1,8 @@
 import React, { useRef, useState } from 'react';
-import TopNav from '@/components/TopNav'
+import TopNav from './TopNav'
 import Image from 'next/image'
 import Link from 'next/link'
+import './page.module.scss'
 
 const cartItem = [
   {
@@ -21,23 +22,22 @@ const Header = () => {
       <Link href={"/"}>
         <Image src={"/favicon.ico"} width={60} height={60} alt={'logo'} />
       </Link>
+      {/* @ts-ignore */}
       <TopNav />
       <div className="shoppingCart">
         Shopping Cart
         <div className="cartList">
           <h4>Shopping Cart ( Total: $8 )</h4>
-          {cartItem.map((item, i) => {
-            return (
-              <>
-                <hr />
-                <div key={item.name} className="cartItem">
-                  <span>{item.name}</span>
-                  <input autoFocus placeholder={item.quantity} />
-                  <span>@${item.price}</span>
-                </div>
-              </>
-            )
-          })}
+          {cartItem.map((item, i) => (
+            <>
+              <hr />
+              <div key={item.name} className="cartItem">
+                <span>{item.name}</span>
+                <input autoFocus type='number' placeholder={`${item.quantity}`} />
+                <span>@${item.price}</span>
+              </div>
+            </>
+          ))}
           <button>CheckOut</button>
         </div>
       </div>
