@@ -13,7 +13,7 @@ datasource db {
 model Product {
   pid       Int       @id @default(autoincrement())
   cid       Int
-  name      String    @db.VarChar(15)
+  name      String    @db.VarChar(30)
   price     Float
   desc      String
   image     String
@@ -25,6 +25,8 @@ model Product {
 
 model Categorie {
   cid     Int       @id @default(autoincrement())
-  name    String
+  name    String    @db.VarChar(30)
   products Product[]
+
+  @@unique([name])
 }

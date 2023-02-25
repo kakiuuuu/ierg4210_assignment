@@ -1,6 +1,11 @@
 import ProductList from './ProductList'
 import type { Product } from '@/typings'
 
+export const metadata = {
+  title: 'Shopping App',
+  description: 'A shopping website that sell cat food'
+}
+
 async function getProducts() {
   const res = await fetch(`${process.env.BASE_URL}/api/Product`, { next: { revalidate: 20 } })
   if (!res.ok) {

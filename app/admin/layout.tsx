@@ -1,7 +1,7 @@
 import '@/styles/globals.scss'
-import './adminPage.module.scss'
-// import Header from './Header'
-// import Footer from './Footer'
+import '@/styles/adminPanel.scss'
+import SideBar from './SideBar'
+import Header from './Header'
 export default function RootLayout({
   children,
 }: {
@@ -9,9 +9,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head />
       <body>
         {/* <Header /> */}
+        <SideBar />
           {children}
         {/* <Footer /> */}
       </body>

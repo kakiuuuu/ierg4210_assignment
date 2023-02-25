@@ -27,7 +27,7 @@ const ProductPage = async (props : Props) => {
       <h3>
         <Link href={'/'}>Home</Link>
         {' > '}
-        <Link href={'/'}>{product.categorie?.name}</Link>
+        <Link href={`/categories/${product.cid}`}>{product.categorie?.name}</Link>
         {' > '}
         <Link href={`/products/${product.pid}`}>{product.name}</Link>
       </h3>
