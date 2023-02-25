@@ -2,7 +2,7 @@ export type Categorie = {
   cid: number,
   name: string,
   products: Product[]?
-}
+};
 
 export type Product = {
   pid: number,
@@ -13,4 +13,4 @@ export type Product = {
   image: string,
   inventory: number,
   categorie: Categorie?
-}
+};
