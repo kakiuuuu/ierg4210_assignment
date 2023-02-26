@@ -7,7 +7,11 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    const productsRc = await prisma.product.findMany()
+    const productsRc = await prisma.prduct.findMany({
+      include: {
+        categorie: true,
+      },
+    })
     return res.status(200).json(productsRc)
   } catch (error) {
     return res.status(500).json(error)
