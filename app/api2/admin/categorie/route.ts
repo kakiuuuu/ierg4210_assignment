@@ -3,7 +3,6 @@ import { prisma } from '@/prisma/client';
 
 export async function POST(
   request: Request,
-  { params }: { params: { cid: number } }
 ) {
   try {
     const body = await request.json();

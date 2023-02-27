@@ -3,14 +3,10 @@ import { prisma } from '@/prisma/client';
 
 export async function POST(
   request: Request,
-  { params }: { params: { pid: number } }
 ) {
   try {
-    let pid = Number(params.pid)
     const body = await request.json();
-    const { name } = body
-    const putProduct = await prisma.product.update({
-      where: { pid },
+    const putProduct = await prisma.product.create({
       data: {
         name: body.name,
         cid: Number(body.cid),
@@ -22,6 +18,7 @@ export async function POST(
     })
     return NextResponse.json(putProduct);
   } catch (error) {
+    console.log("fuch UOUUUUUUUU",error)
     return NextResponse.json(error)
   }
 }

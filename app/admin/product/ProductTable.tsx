@@ -13,8 +13,8 @@ export default  function ProductTable({ products, categories }: Props) {
   const [selectedItem, setSelectedItem] = useState<Product|undefined>()
   const router = useRouter()
 
-  const handleDelete = async (cid:number) => {
-    const deleteCategorie = await fetch(`/api2/admin/product/${cid}`, {
+  const handleDelete = async (pid:number) => {
+    const deleteProduct = await fetch(`/api2/admin/product/${pid}`, {
       method: "DELETE",
     });
     router.refresh()
@@ -36,9 +36,9 @@ export default  function ProductTable({ products, categories }: Props) {
               <>
                 <div className="buttonGrp">
                   <button onClick={()=> {setSelectedItem(product)}}>Edit</button>
-                  <button onClick={()=> {handleDelete(product.cid)}}>Delete</button>
+                  <button onClick={()=> {handleDelete(product.pid)}}>Delete</button>
                 </div>
-                <p>{product.cid}</p>
+                <p>{product.pid}</p>
                 <p>{product.name}</p>
                 <p>{product.categorie?.name}</p>
                 <p>{product.price}</p>

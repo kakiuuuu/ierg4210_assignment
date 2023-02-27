@@ -16,8 +16,8 @@ export default function ProductForm({ product, categories }: Props) {
   const [loading, setLoading] = useState(false)
   const [file, setFile] = useState<File | null>(null);
   const uploadFileRef = useRef<HTMLInputElement>(null)
-  const [previewUrl, setPreviewUrl] = useState<string | undefined>(product?.image);
-  const { register, handleSubmit, setValue, reset, resetField, formState: { errors } } = useForm<any>({
+  const [imageUrl, setImageUrl] = useState<string | undefined>(product?.image);
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<any>({
     values: {
       pid: product?.pid ? product.pid : null,
       name: product?.name ? product.name : null,
@@ -28,11 +28,11 @@ export default function ProductForm({ product, categories }: Props) {
       image: product?.image ? product.image : '/product'
     },
   });
-
+  console.log('imageUrl>>>>>', imageUrl)
   useEffect(() => {
     reset()
     setFile(null)
-    setPreviewUrl(product?.image)
+    setImageUrl(product?.image)
   }, [product])
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,57 +61,43 @@ export default function ProductForm({ product, categories }: Props) {
       return;
     }
     setFile(file);
-    setPreviewUrl(URL.createObjectURL(file));
+    setImageUrl(URL.createObjectURL(file));
   }
 
   const onSubmit: SubmitHandler<Product> = async (_formData) => {
-    
-    if (!file) {
-      return;
-    }
+    let formData = _formData
     setLoading(true)
-    let Image = new FormData();
-    Image.append("media", file);
-    console.log('Image>>>', Image)
-
-    const res = await fetch("/api/admin/uploadImage", {
-      method: "POST",
-      body: Image,
-    });
-    const {
-      data,
-      error,
-    }: {
-      data: {
-        url: string;
-      } | null;
-      error: string | null;
-    } = await res.json();
-
-    if (error || !data) {
-      alert(error || "Sorry! something went wrong.");
-      return;
+    if(file) {
+      let Image = new FormData();
+      Image.append("media", file);
+      const res = await fetch("/api/admin/uploadImage", {
+        method: "POST",
+        body: Image,
+      });
+      const { data, error, }: {data: { url: string } | null, error: string | null} = await res.json();
+      if (error || !data) {
+        alert(error || "Sorry! something went wrong.");
+        return;
+      }
+      console.log("Image was uploaded successfylly:", data);
+      setImageUrl(data.url)
+      formData.image = data.url
     }
-    console.log("Image was uploaded successfylly:", data);
-    setValue('image', data.url)
-    console.log('_formData,,<<.>>>', { ..._formData, image: data?.url })
-    // if(_formData.categorie) delete _formData.categorie;
+    console.log('_formData,,<<.>>>', formData )
     if (product?.pid) {
       const putProductRes = await fetch(`/api2/admin/product/${product?.pid}`, {
         method: "PUT",
-        body: JSON.stringify({ ..._formData, image: data?.url }),
+        body: JSON.stringify(formData),
       });
     } else {
       const postProductRes = await fetch(`/api2/admin/product`, {
         method: "POST",
-        body: JSON.stringify({ ..._formData, image: data?.url }),
+        body: JSON.stringify(formData),
       });
-      console.log('postProductRes>>>>>', postProductRes)
+      console.log('postProductRes>>>>>', postProductRes.json())
     }
     setLoading(false)
-    reset()
     router.refresh()
-    setPreviewUrl(product?.image)
   };
 
   return (
@@ -156,12 +142,12 @@ export default function ProductForm({ product, categories }: Props) {
               <input type="file" hidden onChange={(e) => handleFileChange(e)} ref={uploadFileRef} />
             </div>
 
-            {previewUrl && (
+            {imageUrl && (
               <div>
                 <p>Preview</p>
                 <Image
                   alt="file uploader preview"
-                  src={previewUrl ? previewUrl : product?.image ? product?.image : ''}
+                  src={imageUrl ? imageUrl : product?.image ? product?.image : ''}
                   width={320}
                   height={218}
                 />
@@ -169,7 +155,7 @@ export default function ProductForm({ product, categories }: Props) {
             )}
           </div>
           {loading && (<p>Loading</p>)}
-          <input type="submit" />
+          <button type="submit">Submit</button>
         </form>
       </div>
     </section>

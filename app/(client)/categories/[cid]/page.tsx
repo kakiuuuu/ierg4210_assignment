@@ -1,6 +1,7 @@
 import ProductList from '../../ProductList'
 import Link from 'next/link'
 import type { Categorie, Product } from '@/typings'
+import { notFound } from 'next/navigation'
 
 type Props = {
   params: {
@@ -20,6 +21,9 @@ async function getProductsByCid(cid: number) {
 export default async function Categorie(props: Props) {
   const { params: { cid } } = props
   const categorie = await getProductsByCid(cid)
+  if (!categorie) {
+    notFound();
+  }
   const { products } = categorie
   return (
     <main>
@@ -31,4 +35,11 @@ export default async function Categorie(props: Props) {
       <ProductList products={products} />
     </main>
   )
+}
+
+export async function generateStaticParams() {
+  const res = await fetch(`${process.env.BASE_URL}/api2/categrie`)
+  const categories: Categorie[] = await res.json()
+
+  return categories.map((categorie) => ({ cid:categorie.cid.toString() }))
 }

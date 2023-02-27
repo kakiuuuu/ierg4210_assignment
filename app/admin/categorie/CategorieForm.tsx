@@ -48,7 +48,7 @@ export default function ProductForm({ categorie }: Props) {
           <input {...register("name", { required: true })} />
           {errors.name && <span>This field is required</span>}
           {loading && (<p>Loading</p>)}
-          <input type="submit" />
+          <button type="submit">Submit</button>
         </form>
       </div>
     </section>

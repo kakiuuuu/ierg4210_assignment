@@ -1,5 +1,4 @@
 import type { Product, Categorie } from '@/typings'
-import AddButton from '../AddButton';
 import ProductTable from './ProductTable';
 
 async function getProducts() {

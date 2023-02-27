@@ -8,7 +8,9 @@ export async function GET(
   req: NextApiRequest,
 ) {
   try {
-    const productsRc = await prisma.product.findMany()
+    const productsRc = await prisma.product.findMany({
+      include: { categorie: true }
+    })
     return NextResponse.json(productsRc);
   } catch (error) {
     return NextResponse.json(error)

@@ -16,7 +16,7 @@ export default async function ProductPage() {
 
   return (
     <main>
-      <h3>Product</h3>
+      <h3>Categorie</h3>
       <CategorieTable categories={categories}/>
     </main>
   )
