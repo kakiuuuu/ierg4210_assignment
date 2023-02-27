@@ -1,4 +1,3 @@
-import React, { useRef, useState } from 'react';
 import TopNav from './TopNav'
 import Image from 'next/image'
 import Link from 'next/link'

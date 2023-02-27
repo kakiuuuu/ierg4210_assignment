@@ -1,6 +1,6 @@
 import ProductList from '../../ProductList'
 import Link from 'next/link'
-import type { Categorie, Product } from '@/typings'
+import type { Categorie } from '@/typings'
 import { notFound } from 'next/navigation'
 
 type Props = {
@@ -9,8 +9,8 @@ type Props = {
   }
 }
 
-async function getProductsByCid(cid: number) {
-  const res = await fetch(`${process.env.BASE_URL}/api2/categorie/${cid}`, { next: { revalidate: 600 } })
+async function getCategorie(cid: number) {
+  const res = await fetch(`${process.env.BASE_URL}/api2/categorie/${cid}`, { next: { revalidate: 60 } })
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
@@ -20,7 +20,7 @@ async function getProductsByCid(cid: number) {
 
 export default async function Categorie(props: Props) {
   const { params: { cid } } = props
-  const categorie = await getProductsByCid(cid)
+  const categorie = await getCategorie(cid)
   if (!categorie) {
     notFound();
   }
@@ -37,9 +37,9 @@ export default async function Categorie(props: Props) {
   )
 }
 
-export async function generateStaticParams() {
-  const res = await fetch(`${process.env.BASE_URL}/api2/categrie`)
-  const categories: Categorie[] = await res.json()
+// export async function generateStaticParams() {
+//   const categoriesRes = await fetch(`${process.env.BASE_URL}/api2/categorie`)
+//   const categories: Categorie[] = await categoriesRes.json()
 
-  return categories.map((categorie) => ({ cid:categorie.cid.toString() }))
-}
+//   return categories.map((categorie) => ({ cid:categorie.cid.toString()}))
+// }

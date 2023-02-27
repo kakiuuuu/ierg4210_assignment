@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 
 
 type Props = {
-  product: Product | undefined
+  product: Product | null
   categories: Categorie[]
 }
 
@@ -16,23 +16,23 @@ export default function ProductForm({ product, categories }: Props) {
   const [loading, setLoading] = useState(false)
   const [file, setFile] = useState<File | null>(null);
   const uploadFileRef = useRef<HTMLInputElement>(null)
-  const [imageUrl, setImageUrl] = useState<string | undefined>(product?.image);
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<any>({
+  const [imageUrl, setImageUrl] = useState<string | null>(product?.image as string);
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<Product | any>({
     values: {
-      pid: product?.pid ? product.pid : null,
-      name: product?.name ? product.name : null,
-      cid: product?.cid ? product.cid : null,
-      desc: product?.desc ? product.desc : null,
-      inventory: product?.inventory ? product.inventory : null,
-      price: product?.price ? product.price : null,
+      pid: product?.pid ? product.pid : 0,
+      name: product?.name ? product.name : '',
+      cid: product?.cid ? product.cid : 0,
+      desc: product?.desc ? product.desc : '',
+      inventory: product?.inventory ? product.inventory : 0,
+      price: product?.price ? product.price : 0,
       image: product?.image ? product.image : '/product'
     },
   });
-  console.log('imageUrl>>>>>', imageUrl)
+  // console.log('imageUrl>>>>>', imageUrl)
   useEffect(() => {
     reset()
     setFile(null)
-    setImageUrl(product?.image)
+    setImageUrl(product?.image as string)
   }, [product])
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,7 +49,7 @@ export default function ProductForm({ product, categories }: Props) {
     const file = fileInput.files[0];
     changeFile(file)
   };
-  const handleDrop = (e:React.DragEvent<HTMLDivElement>) => {
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     const file = e?.dataTransfer?.files[0]
     if (!file) return alert("Fuck you");
@@ -67,23 +67,23 @@ export default function ProductForm({ product, categories }: Props) {
   const onSubmit: SubmitHandler<Product> = async (_formData) => {
     let formData = _formData
     setLoading(true)
-    if(file) {
+    if (file) {
       let Image = new FormData();
       Image.append("media", file);
       const res = await fetch("/api/admin/uploadImage", {
         method: "POST",
         body: Image,
       });
-      const { data, error, }: {data: { url: string } | null, error: string | null} = await res.json();
+      const { data, error }: { data: { url: string } | null, error: string | null } = await res.json();
       if (error || !data) {
         alert(error || "Sorry! something went wrong.");
         return;
       }
-      console.log("Image was uploaded successfylly:", data);
+      console.log("Image was uploaded success:");
       setImageUrl(data.url)
       formData.image = data.url
     }
-    console.log('_formData,,<<.>>>', formData )
+    // console.log('_formData,,<<.>>>', formData)
     if (product?.pid) {
       const putProductRes = await fetch(`/api2/admin/product/${product?.pid}`, {
         method: "PUT",
@@ -94,17 +94,18 @@ export default function ProductForm({ product, categories }: Props) {
         method: "POST",
         body: JSON.stringify(formData),
       });
-      console.log('postProductRes>>>>>', postProductRes.json())
     }
     setLoading(false)
+    alert("Add new item success");
     router.refresh()
   };
 
   return (
     <section>
       <div>
-        <h4>{product ? `Edit Product ${product.pid}` : `Add`}</h4>
+        <h4>{product ? `Edit Product ${product.pid}` : `Add new Product`}</h4>
         <form onSubmit={handleSubmit(onSubmit)}>
+              {/* TODO: form data validate  */}
           <label>Product Name</label>
           <input {...register("name", { required: true })} />
           {errors.name && <span>This field is required</span>}
@@ -120,7 +121,6 @@ export default function ProductForm({ product, categories }: Props) {
           <label>Price</label>
           <input type='number' {...register("price", { required: true })} />
           {errors.price && <span>This field is required</span>}
-
           <label>Descrition</label>
           <textarea cols={50} rows={4} {...register("desc", { required: true })} />
           {errors.desc && <span>This field is required</span>}
@@ -132,13 +132,13 @@ export default function ProductForm({ product, categories }: Props) {
           <label>Image</label>
           <div className='uploadImage'>
             <div className="drag-area"
-              onDragOver={(e) =>{e.preventDefault(); (e.target as Element).className = "drag-area dragOver"; }}
-              onDragLeaveCapture={(e) =>{e.preventDefault(); (e.target as Element).className =  "drag-area"; }}
-              onDrop={(e) => {handleDrop(e); (e.target as Element).className = "drag-area"; }}
+              onDragOver={(e) => { e.preventDefault(); (e.target as Element).className = "drag-area dragOver"; }}
+              onDragLeaveCapture={(e) => { e.preventDefault(); (e.target as Element).className = "drag-area"; }}
+              onDrop={(e) => { handleDrop(e); (e.target as Element).className = "drag-area"; }}
             >
               <header>Drag & Drop to Upload File</header>
               <p>OR</p>
-              <button type='button' onClick={() => {if(uploadFileRef.current) uploadFileRef.current.click()}}>Browse File</button>
+              <button type='button' onClick={() => { if (uploadFileRef.current) uploadFileRef.current.click() }}>Browse File</button>
               <input type="file" hidden onChange={(e) => handleFileChange(e)} ref={uploadFileRef} />
             </div>
 
@@ -147,7 +147,7 @@ export default function ProductForm({ product, categories }: Props) {
                 <p>Preview</p>
                 <Image
                   alt="file uploader preview"
-                  src={imageUrl ? imageUrl : product?.image ? product?.image : ''}
+                  src={imageUrl ? imageUrl : '/product.png'}
                   width={320}
                   height={218}
                 />

@@ -6,7 +6,7 @@ export async function POST(
 ) {
   try {
     const body = await request.json();
-    const putProduct = await prisma.product.create({
+    const postProduct = await prisma.product.create({
       data: {
         name: body.name,
         cid: Number(body.cid),
@@ -16,7 +16,7 @@ export async function POST(
         image: body.image
       }
     })
-    return NextResponse.json(putProduct);
+    return NextResponse.json(postProduct);
   } catch (error) {
     console.log("fuch UOUUUUUUUU",error)
     return NextResponse.json(error)

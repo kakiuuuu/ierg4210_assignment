@@ -50,9 +50,8 @@ const ProductPage = async (props: Props) => {
 
 export default ProductPage
 
-export async function generateStaticParams() {
-  const res = await fetch(`${process.env.BASE_URL}/api2/product`)
-  const products: Product[] = await res.json()
-
-  return products.map((product) => ({ pid:product.pid.toString() }))
-}
+// export async function generateStaticParams() {
+//   const productsRes = await fetch(`${process.env.BASE_URL}/api2/product`)
+//   const products: Product[] = await productsRes.json()
+//   return products.map((product) => ({ pid: product.pid.toString() }))
+// }

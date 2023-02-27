@@ -7,35 +7,35 @@ export const metadata = {
 }
 
 async function getProducts() {
-  const res = await fetch(`${process.env.BASE_URL}/api2/product`, { cache: 'no-cache' })
+  const res = await fetch(`${process.env.BASE_URL}/api2/product`, { next: { revalidate: 60 } })
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
-  const data = await res.json()
-  return data
+  const products: Product[] = await res.json()
+  return products
 }
 async function getCategories() {
-  const res = await fetch(`${process.env.BASE_URL}/api2/categorie`, { cache: 'no-cache' })
+  const res = await fetch(`${process.env.BASE_URL}/api2/categorie`, { next: { revalidate: 60 } })
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
-  const data = await res.json()
-  return data
+  const categories: Categorie[] = await res.json()
+  return categories
 }
 
 export default async function AdminPage() {
-  const productsData = getProducts()
-  const categoriesData = getCategories()
-  const [products, categories]: [Product[], Categorie[]] = await Promise.all([productsData, categoriesData])
+  const productsPromise = getProducts()
+  const categoriesPromise = getCategories()
+  const [products, categories] = await Promise.all([productsPromise, categoriesPromise])
 
   return (
     <main>
       <h3>Dashboard</h3>
-      <div className="sectioncontainer">
+      <div className="sectionContainer">
         <Link href={'/admin/product'}>
           <section>
             <h4>Products List</h4>
-            {products.map((product) => {
+            {products?.map((product) => {
               return (
                 <div key={product.pid}>
                   <span>{product.name}</span> -------- Inventory: <span>{product.inventory}</span>
@@ -47,7 +47,7 @@ export default async function AdminPage() {
         <Link href={'/admin/categorie'}>
           <section>
             <h4>Categories List</h4>
-            {categories.map((categorie) => {
+            {categories?.map((categorie) => {
               return (
                 <div key={categorie.cid}>
                   <p>{categorie.name}</p>

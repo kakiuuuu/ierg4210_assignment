@@ -8,11 +8,11 @@ type Props = {
   categories: Categorie[]
 }
 
-export default  function CategorieTable({ categories }: Props) {
-  const [selectedItem, setSelectedItem] = useState<Categorie|undefined>()
+export default function CategorieTable({ categories }: Props) {
+  const [selectedItem, setSelectedItem] = useState<Categorie | null>(null)
   const router = useRouter()
 
-  const handleDelete = async (cid:number) => {
+  const handleDelete = async (cid: number) => {
     const deleteCategorie = await fetch(`/api2/admin/categorie/${cid}`, {
       method: "DELETE",
     });
@@ -22,7 +22,7 @@ export default  function CategorieTable({ categories }: Props) {
     <>
       <section>
         <h4>Categorie List</h4>
-        <button onClick={()=> {setSelectedItem(undefined)}}>Add new</button>
+        <button onClick={() => { setSelectedItem(null) }}>Add new</button>
         <div className="categorieTable">
           <h4>Operation</h4>
           <h4>ID</h4>
@@ -31,17 +31,18 @@ export default  function CategorieTable({ categories }: Props) {
             return (
               <>
                 <div className="buttonGrp">
-                  <button onClick={()=> {setSelectedItem(categorie)}}>Edit</button>
-                  <button onClick={()=> {handleDelete(categorie.cid)}}>Delete</button>
+                  <button onClick={() => { setSelectedItem(categorie) }}>Edit</button>
+                  <button onClick={() => { handleDelete(categorie.cid) }}>Delete</button>
                 </div>
                 <p>{categorie.cid}</p>
                 <p>{categorie.name}</p>
+                {/* TODO: add number of cat */}
               </>
             )
           })}
         </div>
       </section>
-      <CategorieForm categorie={selectedItem}/>
+      <CategorieForm categorie={selectedItem} />
     </>
   )
 }

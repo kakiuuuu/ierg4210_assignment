@@ -10,7 +10,7 @@ type Props = {
 }
 
 export default  function ProductTable({ products, categories }: Props) {
-  const [selectedItem, setSelectedItem] = useState<Product|undefined>()
+  const [selectedItem, setSelectedItem] = useState<Product|null>(null)
   const router = useRouter()
 
   const handleDelete = async (pid:number) => {
@@ -23,7 +23,7 @@ export default  function ProductTable({ products, categories }: Props) {
     <>
       <section>
         <h4>Categorie List</h4>
-        <button onClick={()=> {setSelectedItem(undefined)}}>Add new</button>
+        <button onClick={()=> {setSelectedItem(null)}}>Add new</button>
         <div className="table">
           <h4>Operation</h4>
           <h4>ID</h4>
