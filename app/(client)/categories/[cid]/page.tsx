@@ -9,7 +9,7 @@ type Props = {
 }
 
 async function getProductsByCid(cid: number) {
-  const res = await fetch(`${process.env.BASE_URL}/api/Categorie/${cid}`, { next: { revalidate: 600 } })
+  const res = await fetch(`${process.env.BASE_URL}/api2/categorie/${cid}`, { next: { revalidate: 600 } })
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }

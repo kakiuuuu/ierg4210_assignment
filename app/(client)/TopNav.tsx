@@ -3,7 +3,7 @@ import type { Categorie } from '@/typings'
 
 
 async function getCategories() {
-  const res = await fetch(`${process.env.BASE_URL}/api/Categorie`, { next: { revalidate: 20 } })
+  const res = await fetch(`${process.env.BASE_URL}/api2/categorie`, { next: { revalidate: 20 } })
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }

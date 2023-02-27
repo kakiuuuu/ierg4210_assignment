@@ -1,8 +1,9 @@
 import type { Product, Categorie } from '@/typings'
 import AddButton from '../AddButton';
+import ProductTable from './ProductTable';
 
 async function getProducts() {
-  const res = await fetch(`${process.env.BASE_URL}/api/Product`, { next: { revalidate: 400 } })
+  const res = await fetch(`${process.env.BASE_URL}/api2/product`, { cache:'no-cache' })
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
@@ -10,7 +11,7 @@ async function getProducts() {
   return data
 }
 async function getCategories() {
-  const res = await fetch(`${process.env.BASE_URL}/api/Categorie`, { next: { revalidate: 400 } })
+  const res = await fetch(`${process.env.BASE_URL}/api2/categorie`, { cache:'no-cache'  })
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
@@ -19,23 +20,14 @@ async function getCategories() {
 }
 
 export default async function ProductPage() {
-  const products: Product[] = await getProducts()
-  const categories: Categorie[] = await getCategories()
+  const productsData =  getProducts()
+  const categoriesData =  getCategories()
+  const [products, categories]:[Product[], Categorie[]] = await Promise.all([productsData, categoriesData])
 
   return (
     <main>
       <h3>Product</h3>
-      <section>
-        <h4>Products List</h4>
-        {/* <AddButton /> */}
-        {products.map((product) => {
-          return (
-            <div key={product.pid}>
-              <p>{product.name}</p>
-            </div>
-          );
-        })}
-      </section>
+      <ProductTable products={products} categories={categories}/>
     </main>
   )
 }

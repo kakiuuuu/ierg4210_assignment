@@ -10,7 +10,7 @@ export const parseForm = async (
   req: NextApiRequest
 ): Promise<{ fields: formidable.Fields; files: formidable.Files }> => {
   return new Promise(async (resolve, reject) => {
-    const uploadDir = join(process.env.ROOT_DIR || process.cwd(), `/uploads`);
+    const uploadDir = join(process.env.ROOT_DIR || process.cwd(), `/public`);
 
     try {
       await stat(uploadDir);
@@ -29,8 +29,8 @@ export const parseForm = async (
       maxFileSize: 1024 * 1024 * 5, // 5mb
       uploadDir,
       filename: (_name, _ext, part) => {
-        const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
-        const filename = `${part.name || "unknown"}-${uniqueSuffix}.${
+        const uniqueSuffix = `${Date.now()}_${Math.round(Math.random() * 1e9)}`;
+        const filename = `${part.name || "unknown"}_${uniqueSuffix}.${
           mime.getExtension(part.mimetype || "") || "unknown"
         }`;
         return filename;

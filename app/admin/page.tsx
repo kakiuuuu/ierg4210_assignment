@@ -1,4 +1,5 @@
 import type { Product, Categorie } from '@/typings'
+import Link from 'next/link';
 
 export const metadata = {
   title: 'Admin Panel',
@@ -6,7 +7,7 @@ export const metadata = {
 }
 
 async function getProducts() {
-  const res = await fetch(`${process.env.BASE_URL}/api/Product`, { next: { revalidate: 400 } })
+  const res = await fetch(`${process.env.BASE_URL}/api2/product`, { cache: 'no-cache' })
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
@@ -14,7 +15,7 @@ async function getProducts() {
   return data
 }
 async function getCategories() {
-  const res = await fetch(`${process.env.BASE_URL}/api/Categorie`, { next: { revalidate: 400 } })
+  const res = await fetch(`${process.env.BASE_URL}/api2/categorie`, { cache: 'no-cache' })
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
@@ -23,36 +24,39 @@ async function getCategories() {
 }
 
 export default async function AdminPage() {
-  const products: Product[] = await getProducts()
-  const categories: Categorie[] = await getCategories()
+  const productsData = getProducts()
+  const categoriesData = getCategories()
+  const [products, categories]: [Product[], Categorie[]] = await Promise.all([productsData, categoriesData])
 
   return (
     <main>
       <h3>Dashboard</h3>
       <div className="sectioncontainer">
-        <section>
-          <h4>Products List</h4>
-          {/* <AddButton /> */}
-          {products.map((product) => {
-            return (
-              <div key={product.pid}>
-                <p>{product.name}</p>
-              </div>
-            );
-          })}
-        </section>
-        <section>
-          <h4>Categories List</h4>
-          {/* <AddButton /> */}
-          {categories.map((categorie) => {
-            return (
-              <div key={categorie.cid}>
-                <p>{categorie.name}</p>
-              </div>
-            );
-          })}
-        </section>
+        <Link href={'/admin/product'}>
+          <section>
+            <h4>Products List</h4>
+            {products.map((product) => {
+              return (
+                <div key={product.pid}>
+                  <span>{product.name}</span> -------- Inventory: <span>{product.inventory}</span>
+                </div>
+              );
+            })}
+          </section>
+        </Link>
+        <Link href={'/admin/categorie'}>
+          <section>
+            <h4>Categories List</h4>
+            {categories.map((categorie) => {
+              return (
+                <div key={categorie.cid}>
+                  <p>{categorie.name}</p>
+                </div>
+              );
+            })}
+          </section>
+        </Link>
       </div>
-    </main>
+    </main >
   )
 }

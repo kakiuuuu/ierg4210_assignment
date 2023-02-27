@@ -26,7 +26,7 @@ const handler = async (
     if (Array.isArray(file))  throw new Error()
     res.status(200).json({
       data: {
-        url: `/uploads/${file.newFilename}`,
+        url: `/${file.newFilename}`,
       },
       error: null,
     });
