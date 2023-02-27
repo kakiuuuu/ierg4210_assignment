@@ -96,7 +96,7 @@ export default function ProductForm({ product, categories }: Props) {
       });
     }
     setLoading(false)
-    alert("Add new item success");
+    alert("Success!");
     router.refresh()
   };
 

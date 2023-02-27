@@ -2,7 +2,7 @@ import type { Categorie } from '@/typings'
 import CategorieTable from './CategorieTable';
 
 async function getCategories() {
-  const res = await fetch(`${process.env.BASE_URL}/api2/categorie`, { next: { revalidate: 60 } })
+  const res = await fetch(`${process.env.BASE_URL}/api/categorie`, { cache: 'no-cache' })
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
