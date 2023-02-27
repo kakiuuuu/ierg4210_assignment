@@ -7,7 +7,7 @@ module.exports = {
     production: {
       key: 'CUHK_KAKIU.pem',
       user: 'ubuntu',
-      host: '18. 210.29.239',
+      host: '18.210.29.239',
       ref: 'origin/main',
       repo: 'ierg4210_assignment',
       path: '/home/ubuntu',
