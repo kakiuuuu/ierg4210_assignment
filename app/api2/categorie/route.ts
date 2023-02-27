@@ -1,4 +1,3 @@
-import { Categorie } from '@/typings';
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { NextResponse } from 'next/server'
 

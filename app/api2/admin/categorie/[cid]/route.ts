@@ -2,15 +2,15 @@ import { NextResponse } from 'next/server'
 import { prisma } from '@/prisma/client';
 
 export async function PUT(
-  request:Request,
-  { params } : { params :{ cid: number} }
-){
+  request: Request,
+  { params }: { params: { cid: number } }
+) {
   try {
     let cid = Number(params.cid)
     const body = await request.json();
     const { name } = body
     const putCategrie = await prisma.categorie.update({
-      where: {cid},
+      where: { cid },
       data: { name }
     })
     return NextResponse.json(putCategrie);
@@ -20,13 +20,13 @@ export async function PUT(
 }
 
 export async function DELETE(
-  request:Request,
-  { params } : { params :{ cid: number} }
-){
+  request: Request,
+  { params }: { params: { cid: number } }
+) {
   try {
     let cid = Number(params.cid)
     const deleteCategrie = await prisma.categorie.delete({
-      where: {cid},
+      where: { cid },
     })
     return NextResponse.json(deleteCategrie);
   } catch (error) {

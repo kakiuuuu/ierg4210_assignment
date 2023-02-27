@@ -1,9 +1,8 @@
 import type { Product, Categorie } from '@/typings'
-import AddButton from '../AddButton';
 import ProductTable from './ProductTable';
 
 async function getProducts() {
-  const res = await fetch(`${process.env.BASE_URL}/api2/product`, { cache:'no-cache' })
+  const res = await fetch(`${process.env.BASE_URL}/api2/product`, { next: { revalidate: 60 } })
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
@@ -11,7 +10,7 @@ async function getProducts() {
   return data
 }
 async function getCategories() {
-  const res = await fetch(`${process.env.BASE_URL}/api2/categorie`, { cache:'no-cache'  })
+  const res = await fetch(`${process.env.BASE_URL}/api2/categorie`, { next: { revalidate: 60 } })
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
@@ -20,14 +19,14 @@ async function getCategories() {
 }
 
 export default async function ProductPage() {
-  const productsData =  getProducts()
-  const categoriesData =  getCategories()
-  const [products, categories]:[Product[], Categorie[]] = await Promise.all([productsData, categoriesData])
+  const productsData = getProducts()
+  const categoriesData = getCategories()
+  const [products, categories]: [Product[], Categorie[]] = await Promise.all([productsData, categoriesData])
 
   return (
     <main>
       <h3>Product</h3>
-      <ProductTable products={products} categories={categories}/>
+      <ProductTable products={products} categories={categories} />
     </main>
   )
 }

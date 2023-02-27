@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation';
 import Image from 'next/image'
 import Link from 'next/link'
 import type { Product } from '@/typings'
@@ -10,7 +11,7 @@ type Props = {
 }
 
 async function getProduct(pid: number) {
-  const res = await fetch(`${process.env.BASE_URL}/api2/product/${pid}`)
+  const res = await fetch(`${process.env.BASE_URL}/api2/product/${pid}`, { next: { revalidate: 60 } })
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
@@ -18,10 +19,12 @@ async function getProduct(pid: number) {
   return product
 }
 
-const ProductPage = async (props : Props) => {
+const ProductPage = async (props: Props) => {
   const { params: { pid } } = props
   const product = await getProduct(pid)
-
+  if (!product) {
+    notFound();
+  }
   return (
     <main >
       <h3>
@@ -46,3 +49,9 @@ const ProductPage = async (props : Props) => {
 }
 
 export default ProductPage
+
+// export async function generateStaticParams() {
+//   const productsRes = await fetch(`${process.env.BASE_URL}/api2/product`)
+//   const products: Product[] = await productsRes.json()
+//   return products.map((product) => ({ pid: product.pid.toString() }))
+// }

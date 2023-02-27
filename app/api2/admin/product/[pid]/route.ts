@@ -8,7 +8,6 @@ export async function PUT(
   try {
     let pid = Number(params.pid)
     const body = await request.json();
-    const { name } = body
     const putProduct = await prisma.product.update({
       where: { pid },
       data: {
