@@ -2,7 +2,7 @@ import type { Product, Categorie } from '@/typings'
 import ProductTable from './ProductTable';
 
 async function getProducts() {
-  const res = await fetch(`${process.env.BASE_URL}/api/product`, { cache: 'no-cache' })
+  const res = await fetch(`${process.env.BASE_URL}/api/product`)
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
@@ -10,7 +10,7 @@ async function getProducts() {
   return data
 }
 async function getCategories() {
-  const res = await fetch(`${process.env.BASE_URL}/api/categorie`, { cache: 'no-cache' })
+  const res = await fetch(`${process.env.BASE_URL}/api/categorie`)
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }

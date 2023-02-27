@@ -7,7 +7,7 @@ export const metadata = {
 }
 
 async function getProducts() {
-  const res = await fetch(`${process.env.BASE_URL}/api2/product`, { next: { revalidate: 60 } })
+  const res = await fetch(`${process.env.BASE_URL}/api2/product`)
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }

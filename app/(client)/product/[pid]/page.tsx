@@ -11,7 +11,7 @@ type Props = {
 }
 
 async function getProduct(pid: number) {
-  const res = await fetch(`${process.env.BASE_URL}/api2/product/${pid}`, { next: { revalidate: 60 } })
+  const res = await fetch(`${process.env.BASE_URL}/api2/product/${pid}`)
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
