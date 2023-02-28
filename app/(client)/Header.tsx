@@ -27,14 +27,14 @@ const Header = () => {
         <div className="cartList">
           <h4>Shopping Cart ( Total: $8 )</h4>
           {cartItem.map((item, i) => (
-            <>
+            <div key={item.name}>
               <hr />
-              <div key={item.name} className="cartItem">
+              <div className="cartItem">
                 <span>{item.name}</span>
                 <input autoFocus type='number' placeholder={`${item.quantity}`} />
                 <span>@${item.price}</span>
               </div>
-            </>
+            </div>
           ))}
           <button>CheckOut</button>
         </div>

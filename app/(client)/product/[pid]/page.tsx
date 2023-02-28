@@ -38,7 +38,7 @@ const ProductPage = async (props: Props) => {
         <Link href={`/product/${product.pid}`}>{product.name}</Link>
       </h3>
       <div className='productDetail'>
-        <Image src={product.image} width={531} height={324} alt={product.name} className='productImage' />
+        <Image src={`${process.env.NEXT_PUBLIC_BUCKET_URL}${product.image}`} width={531} height={324} alt={product.name} className='productImage' />
         <h2>{product.name}</h2>
         <p className='desc'>{product.desc}</p>
         <h4 className='inventory'>
@@ -54,6 +54,6 @@ const ProductPage = async (props: Props) => {
 export default ProductPage
 
 export async function generateStaticParams() {
-  const products = await prisma.product.findMany()
+  const products: Product[] = await prisma.product.findMany()
   return products.map((product) => ({ pid: product.pid.toString() }))
 }

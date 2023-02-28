@@ -1,6 +1,5 @@
 'use client'
 
-import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import type { Product } from '@/typings'
@@ -10,7 +9,7 @@ type Props = {
 }
 
 export default function ProductList(props: Props) {
-  const { products }= props
+  const { products } = props
   const onClickHandler = (e: React.MouseEvent) => {
     e.preventDefault();
   }
@@ -20,7 +19,7 @@ export default function ProductList(props: Props) {
         return (
           <div className="card" key={product.pid}>
             <Link href={`/product/${product.pid}`}>
-              <Image src={product.image} width={236} height={142} alt={product.name} />
+              <Image src={`${process.env.NEXT_PUBLIC_BUCKET_URL}${product.image}`} width={236} height={142} alt={product.name} />
               <h2>{product.name}</h2>
               <p>${product.price}</p>
               <button onClick={onClickHandler}>Add to cart</button>
