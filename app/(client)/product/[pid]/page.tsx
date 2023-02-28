@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import type { Product } from '@/typings'
 import AddToCart from './AddToCart'
+import { prisma } from '@/prisma/client';
 
 type Props = {
   params: {
@@ -10,12 +11,14 @@ type Props = {
   }
 }
 
-async function getProduct(pid: number) {
-  const res = await fetch(`${process.env.BASE_URL}/api/product/${pid}`)
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
-  }
-  const product: Product = await res.json()
+async function getProduct(pid: any) {
+  pid = Number(pid)
+  const product = await prisma.product.findUnique({
+    where: { pid },
+    include: {
+      categorie: true,
+    },
+  })
   return product
 }
 
@@ -50,9 +53,7 @@ const ProductPage = async (props: Props) => {
 
 export default ProductPage
 
-// export async function generateStaticParams() {
-//   const productsRes = await fetch(`${process.env.BASE_URL}/api/product`)
-
-//   const products: Product[] = await productsRes.json()
-//   return products.map((product) => ({ pid: product.pid.toString() }))
-// }
+export async function generateStaticParams() {
+  const products = await prisma.product.findMany()
+  return products.map((product) => ({ pid: product.pid.toString() }))
+}

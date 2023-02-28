@@ -1,5 +1,6 @@
 import type { Product, Categorie } from '@/typings'
 import Link from 'next/link';
+import { prisma } from '@/prisma/client';
 
 export const metadata = {
   title: 'Admin Panel',
@@ -7,22 +8,17 @@ export const metadata = {
 }
 
 async function getProducts() {
-  const res = await fetch(`${process.env.BASE_URL}/api/product`)
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
-  }
-  const products: Product[] = await res.json()
+  const products: Product[] = await prisma.product.findMany({
+    include: {
+      categorie: true,
+    },
+  })
   return products
 }
 async function getCategories() {
-  const res = await fetch(`${process.env.BASE_URL}/api/categorie`)
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
-  }
-  const categories: Categorie[] = await res.json()
+  const categories: Categorie[]  = await prisma.categorie.findMany()
   return categories
 }
-
 export default async function AdminPage() {
   const productsPromise = getProducts()
   const categoriesPromise = getCategories()

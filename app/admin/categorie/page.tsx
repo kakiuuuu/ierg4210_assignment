@@ -1,12 +1,9 @@
 import type { Categorie } from '@/typings'
 import CategorieTable from './CategorieTable';
+import { prisma } from '@/prisma/client';
 
 async function getCategories() {
-  const res = await fetch(`${process.env.BASE_URL}/api/categorie`)
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
-  }
-  const categories: Categorie[] = await res.json()
+  const categories: Categorie[]  = await prisma.categorie.findMany()
   return categories
 }
 
