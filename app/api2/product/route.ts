@@ -1,19 +1,18 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { NextResponse } from 'next/server'
+
 import { prisma } from '@/prisma/client';
 
 
-export default async function handler(
+export async function GET(
   req: NextApiRequest,
-  res: NextApiResponse
 ) {
   try {
     const productsRc = await prisma.product.findMany({
-      include: {
-        categorie: true,
-      },
+      include: { categorie: true }
     })
-    return res.status(200).json(productsRc)
+    return NextResponse.json(productsRc);
   } catch (error) {
-    return res.status(500).json(error)
+    return NextResponse.json(error)
   }
 }
