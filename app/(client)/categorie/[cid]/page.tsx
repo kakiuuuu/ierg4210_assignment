@@ -1,4 +1,4 @@
-import ProductList from '../../ProductList'
+import ProductList from '../../(component)/ProductList'
 import Link from 'next/link'
 import type { Categorie } from '@/typings'
 import { notFound } from 'next/navigation'

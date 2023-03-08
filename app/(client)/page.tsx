@@ -1,4 +1,4 @@
-import ProductList from './ProductList'
+import ProductList from './(component)/ProductList'
 import { prisma } from '@/prisma/client';
 import type { Product } from '@/typings'
 

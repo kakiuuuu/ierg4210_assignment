@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image'
 import Link from 'next/link'
 import type { Product } from '@/typings'
-import AddToCart from './AddToCart'
+import AddToCart from '../../(component)/AddToCart'
 import { prisma } from '@/prisma/client';
 
 type Props = {
@@ -45,7 +45,7 @@ const ProductPage = async (props: Props) => {
           Inventory : {(product.inventory > 3) ? product.inventory : `Only ${product.inventory} Left!`}
         </h4>
         <h4 className='price'>${product.price}</h4>
-        <AddToCart />
+        <AddToCart product={product}/>
       </div>
     </main >
   )

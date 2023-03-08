@@ -1,7 +1,9 @@
 import '@/styles/globals.scss'
 import '@/styles/general.scss'
-import Header from './Header'
-import Footer from './Footer'
+import Header from './(component)/Header'
+import Footer from './(component)/Footer'
+import AppProvider from './provider'
+
 export default function RootLayout({
   children,
 }: {
@@ -10,9 +12,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Header />
-          {children}
-        <Footer />
+        <AppProvider>
+          <Header />
+            {children}
+          <Footer />
+        </AppProvider>
       </body>
     </html>
   )
