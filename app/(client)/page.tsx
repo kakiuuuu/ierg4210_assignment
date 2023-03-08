@@ -8,11 +8,7 @@ export const metadata = {
 }
 
 async function getProducts() {
-  const products: Product[] = await prisma.product.findMany({
-    include: {
-      categorie: true,
-    },
-  })
+  const products: Product[] = await prisma.product.findMany()
   return products
 }
 

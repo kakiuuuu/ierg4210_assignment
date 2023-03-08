@@ -137,7 +137,7 @@ input {
   margin: 1px 1rem;
 }
 
-.redDot {
+.dot {
   border-radius: 50%;
   width: 1rem;
   height: 1rem;
@@ -147,6 +147,7 @@ input {
   position: absolute;
   display: flex;
   justify-content: center;
+  align-items: center;
   right: 0;
   top: 0;
 }
