@@ -1,14 +1,11 @@
 import Link from 'next/link'
 import type { Categorie } from '@/typings'
+import { prisma } from '@/prisma/client';
 
 
 async function getCategories() {
-  const res = await fetch(`${process.env.BASE_URL}/api2/categorie`, { next: { revalidate: 60 } })
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
-  }
-  const data = await res.json()
-  return data
+  const categories = await prisma.categorie.findMany()
+  return categories
 }
 
 export default async function TopNav() {
@@ -18,7 +15,7 @@ export default async function TopNav() {
       <ul className="navBar">
         <Link href={"/"}><li className={"li"}>All</li></Link>
         {categories.map((categorie) => (
-          <Link href={`/categories/${categorie.cid}`} key={categorie.cid}><li className={"li"}>{categorie.name}</li></Link>
+          <Link href={`/categorie/${categorie.cid}`} key={categorie.cid}><li className={"li"}>{categorie.name}</li></Link>
         ))}
       </ul>
     </nav>

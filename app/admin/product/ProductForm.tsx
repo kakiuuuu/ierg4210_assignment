@@ -14,9 +14,10 @@ type Props = {
 export default function ProductForm({ product, categories }: Props) {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
-  const [file, setFile] = useState<File | null>(null);
+  const [file, setFile] = useState<File | null>(null)
   const uploadFileRef = useRef<HTMLInputElement>(null)
-  const [imageUrl, setImageUrl] = useState<string | null>(product?.image as string);
+  let url = ''
+  const [imageUrl, setImageUrl] = useState<string | null>(url);
   const { register, handleSubmit, reset, formState: { errors } } = useForm<Product | any>({
     values: {
       pid: product?.pid ? product.pid : 0,
@@ -32,7 +33,10 @@ export default function ProductForm({ product, categories }: Props) {
   useEffect(() => {
     reset()
     setFile(null)
-    setImageUrl(product?.image as string)
+    if (product) {
+      url = process.env.NEXT_PUBLIC_BUCKET_URL + product.image
+    }
+    setImageUrl(url)
   }, [product])
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,20 +72,30 @@ export default function ProductForm({ product, categories }: Props) {
     let formData = _formData
     setLoading(true)
     if (file) {
-      let Image = new FormData();
-      Image.append("media", file);
-      const res = await fetch("/api/admin/uploadImage", {
+      let [name, type] = file.name.split('.')
+      name = `${name}_${Date.now()}.${type}`
+      let getSignedRes = await fetch("/api2/s3/uploadImage", {
         method: "POST",
-        body: Image,
+        body: JSON.stringify({
+          name, type: file.type,
+        })
       });
-      const { data, error }: { data: { url: string } | null, error: string | null } = await res.json();
-      if (error || !data) {
-        alert(error || "Sorry! something went wrong.");
-        return;
-      }
-      console.log("Image was uploaded success:");
-      setImageUrl(data.url)
-      formData.image = data.url
+      let { data } = await getSignedRes.json()
+      // console.log("Image was uploaded success:", data);
+      const url = data.url;
+      let putFileRes = await fetch(url, {
+        method: "PUT",
+        body: file,
+        headers: {
+          "Content-type": file.type,
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+      // let { uploadData } = await putFileRes.json()
+      console.log('putFileRes>>>>>>>', putFileRes)
+      formData.image = `/${name}`
+      alert(`Uploaded image ${formData.image}`,);
+      setFile(null);
     }
     // console.log('_formData,,<<.>>>', formData)
     if (product?.pid) {
@@ -105,7 +119,7 @@ export default function ProductForm({ product, categories }: Props) {
       <div>
         <h4>{product ? `Edit Product ${product.pid}` : `Add new Product`}</h4>
         <form onSubmit={handleSubmit(onSubmit)}>
-              {/* TODO: form data validate  */}
+          {/* TODO: form data validate  */}
           <label>Product Name</label>
           <input {...register("name", { required: true })} />
           {errors.name && <span>This field is required</span>}

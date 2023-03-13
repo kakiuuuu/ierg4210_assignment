@@ -1,7 +1,8 @@
-import ProductList from '../../ProductList'
+import ProductList from '../../(component)/ProductList'
 import Link from 'next/link'
 import type { Categorie } from '@/typings'
 import { notFound } from 'next/navigation'
+import { prisma } from '@/prisma/client';
 
 type Props = {
   params: {
@@ -10,11 +11,13 @@ type Props = {
 }
 
 async function getCategorie(cid: number) {
-  const res = await fetch(`${process.env.BASE_URL}/api2/categorie/${cid}`, { next: { revalidate: 60 } })
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
-  }
-  const categorie: Categorie = await res.json()
+  cid = Number(cid)
+  const categorie = await prisma.categorie.findUnique({
+    where: { cid },
+    include: {
+      products: true,
+    },
+  })
   return categorie
 }
 
@@ -37,9 +40,7 @@ export default async function Categorie(props: Props) {
   )
 }
 
-// export async function generateStaticParams() {
-//   const categoriesRes = await fetch(`${process.env.BASE_URL}/api/categorie`)
-//   const categories: Categorie[] = await categoriesRes.json()
-
-//   return categories.map((categorie) => ({ cid:categorie.cid.toString()}))
-// }
+export async function generateStaticParams() {
+  const categories = await prisma.categorie.findMany()
+  return categories.map((categorie) => ({ cid:categorie.cid.toString()}))
+}

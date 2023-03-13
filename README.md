@@ -1,32 +1,26 @@
 # ierg4210_assignment
- 
-### Phase 1
- Fong Ka Kiu
+Fong Ka Kiu
  1155143596
 
-I use Next.js to build the website.
-It using Node.js as the server. Therefore, Node.js and npm is required to run the website
-#### To run the project
-
-> $ npm run start
-
-Open http://localhost:3000 with your browser
-### If fail, you can build again
+I use Next.js to build the website.  
+The database is MySQL.  
+I also use S3 in aws to store file
+#### To run the project locally
 
 > $ npm run build
+> 
+> $ npm run start
 
-### or use develop mode
-
-> $ npm run dev
+To Enter admin panel  
+Click the button on the bottom-right corner or type /admin in url
 
 # What are different folders/files used for
 
-* /src -- Include all the source code
-  * /components -- Include components used in page
-  * /data -- For now, it generate the dummy data, e.g products
-  * /page -- Include all page of the website
-    * /products -- A dynamic routes page for each product
-    * _app.js -- The entry point of the website
-    * index.js -- The home page
-  * /styles -- Include all the css
+* /app -- Include all the source code
+  * /client -- Include all page of client side
+  * /admin -- Include all page of admin side
+  * /api2 -- Include all the api
+* /lib -- for some helper fuction
+* /prisma -- Use ORM to help access to database
+* /styles -- Include all the css
 

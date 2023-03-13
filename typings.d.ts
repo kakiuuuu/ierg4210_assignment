@@ -1,7 +1,7 @@
 export type Categorie = {
   cid: number,
   name: string,
-  products: Product[]?
+  products?: Product[]
 };
 
 export type Product = {
@@ -12,5 +12,5 @@ export type Product = {
   desc: string,
   image: string,
   inventory: number,
-  categorie: Categorie?
+  categorie?: Categorie
 };
