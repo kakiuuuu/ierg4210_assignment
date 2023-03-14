@@ -1,21 +1,18 @@
 import type { Product, Categorie } from '@/typings'
 import ProductTable from './ProductTable';
+import { prisma } from '@/prisma/client';
 
 async function getProducts() {
-  const res = await fetch(`${process.env.BASE_URL}/api2/product`, { next: { revalidate: 60 } })
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
-  }
-  const data = await res.json()
-  return data
+  const products: Product[] = await prisma.product.findMany({
+    include: {
+      categorie: true,
+    },
+  })
+  return products
 }
 async function getCategories() {
-  const res = await fetch(`${process.env.BASE_URL}/api2/categorie`, { next: { revalidate: 60 } })
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
-  }
-  const data = await res.json()
-  return data
+  const categories: Categorie[]  = await prisma.categorie.findMany()
+  return categories
 }
 
 export default async function ProductPage() {

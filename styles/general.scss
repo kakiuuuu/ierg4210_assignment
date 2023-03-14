@@ -4,9 +4,9 @@ $font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Robo
   "Ubuntu Monospace", "Source Code Pro", "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
 
 body {
-  color: rgb(0,0,0);
+  color: rgb(0, 0, 0);
   font-family: $font-mono;
-  background: #F3F3F3;
+  background: #f3f3f3;
 }
 
 main {
@@ -60,22 +60,24 @@ main {
     font-weight: 500;
     display: none;
   }
-  &:hover .cartList{
+  &:hover .cartList {
+    z-index: 0;
     display: flex;
     flex-direction: column;
-    .cartItem{
+    .cartItem {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1rem 0;
     }
-    button {
+    & > button {
       margin-left: auto;
     }
   }
 }
 
 .card {
+  z-index: auto;
   display: flex;
   flex-direction: column;
   // width: 50%;
@@ -87,6 +89,8 @@ main {
     margin-bottom: 0.7rem;
   }
   p {
+    position: relative;
+    z-index: -1;
     margin: 0;
     opacity: 0.6;
     font-size: 0.9rem;
@@ -131,6 +135,21 @@ input {
   padding: 0.5rem;
   width: 20%;
   margin: 1px 1rem;
+}
+
+.dot {
+  border-radius: 50%;
+  width: 1rem;
+  height: 1rem;
+  background-color: #f3f3f3;
+  color: #251f21;
+  font-size: 0.5rem;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 0;
+  top: 0;
 }
 // /* Mobile */
 // @media (max-width: 700px) {
