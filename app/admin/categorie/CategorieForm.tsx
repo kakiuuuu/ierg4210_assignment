@@ -25,12 +25,12 @@ export default function ProductForm({ categorie }: Props) {
   const onSubmit: SubmitHandler<Categorie> = async (_formData) => {
     setLoading(true)
     if (categorie?.cid) {
-      const putCategorie = await fetch(`/api2/admin/categorie/${categorie?.cid}`, {
+      const putCategorie = await fetch(`/api/admin/categorie/${categorie?.cid}`, {
         method: "PUT",
         body: JSON.stringify({ ..._formData }),
       });
     } else {
-      const postCategorie = await fetch(`/api2/admin/categorie`, {
+      const postCategorie = await fetch(`/api/admin/categorie`, {
         method: "POST",
         body: JSON.stringify({ ..._formData }),
       });
@@ -47,7 +47,7 @@ export default function ProductForm({ categorie }: Props) {
           <label>Categorie Name</label>
           <input {...register("name", { required: true })} />
           {errors.name && <span>This field is required</span>}
-          {loading && (<p>Loading</p>)}
+          {loading && (<div className="lds-ellipsis"><div /><div /><div /><div /></div>)}
           <button type="submit">Submit</button>
         </form>
       </div>

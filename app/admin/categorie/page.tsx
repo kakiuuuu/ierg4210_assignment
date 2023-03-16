@@ -17,3 +17,5 @@ export default async function CategoriePage() {
     </main>
   )
 }
+
+export const revalidate = 0

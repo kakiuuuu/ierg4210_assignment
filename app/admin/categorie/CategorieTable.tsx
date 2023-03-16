@@ -13,7 +13,7 @@ export default function CategorieTable({ categories }: Props) {
   const router = useRouter()
 
   const handleDelete = async (cid: number) => {
-    const deleteCategorie = await fetch(`/api2/admin/categorie/${cid}`, {
+    const deleteCategorie = await fetch(`/api/admin/categorie/${cid}`, {
       method: "DELETE",
     });
     router.refresh()

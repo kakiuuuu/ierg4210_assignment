@@ -27,3 +27,5 @@ export default async function ProductPage() {
     </main>
   )
 }
+
+export const revalidate = 0

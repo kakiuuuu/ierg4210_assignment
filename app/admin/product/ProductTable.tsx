@@ -14,7 +14,7 @@ export default  function ProductTable({ products, categories }: Props) {
   const router = useRouter()
 
   const handleDelete = async (pid:number) => {
-    const deleteProduct = await fetch(`/api2/admin/product/${pid}`, {
+    const deleteProduct = await fetch(`/api/admin/product/${pid}`, {
       method: "DELETE",
     });
     router.refresh()

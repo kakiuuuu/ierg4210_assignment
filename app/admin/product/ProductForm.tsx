@@ -16,8 +16,7 @@ export default function ProductForm({ product, categories }: Props) {
   const [loading, setLoading] = useState(false)
   const [file, setFile] = useState<File | null>(null)
   const uploadFileRef = useRef<HTMLInputElement>(null)
-  let url = ''
-  const [imageUrl, setImageUrl] = useState<string | null>(url);
+  const [imageUrl, setImageUrl] = useState<string | null>('');
   const { register, handleSubmit, reset, formState: { errors } } = useForm<Product | any>({
     values: {
       pid: product?.pid ? product.pid : 0,
@@ -34,9 +33,8 @@ export default function ProductForm({ product, categories }: Props) {
     reset()
     setFile(null)
     if (product) {
-      url = process.env.NEXT_PUBLIC_BUCKET_URL + product.image
+      setImageUrl(process.env.NEXT_PUBLIC_BUCKET_URL + product.image)
     }
-    setImageUrl(url)
   }, [product])
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,7 +72,7 @@ export default function ProductForm({ product, categories }: Props) {
     if (file) {
       let [name, type] = file.name.split('.')
       name = `${name}_${Date.now()}.${type}`
-      let getSignedRes = await fetch("/api2/s3/uploadImage", {
+      let getSignedRes = await fetch("/api/s3/uploadImage", {
         method: "POST",
         body: JSON.stringify({
           name, type: file.type,
@@ -99,12 +97,12 @@ export default function ProductForm({ product, categories }: Props) {
     }
     // console.log('_formData,,<<.>>>', formData)
     if (product?.pid) {
-      const putProductRes = await fetch(`/api2/admin/product/${product?.pid}`, {
+      const putProductRes = await fetch(`/api/admin/product/${product?.pid}`, {
         method: "PUT",
         body: JSON.stringify(formData),
       });
     } else {
-      const postProductRes = await fetch(`/api2/admin/product`, {
+      const postProductRes = await fetch(`/api/admin/product`, {
         method: "POST",
         body: JSON.stringify(formData),
       });
@@ -168,7 +166,7 @@ export default function ProductForm({ product, categories }: Props) {
               </div>
             )}
           </div>
-          {loading && (<p>Loading</p>)}
+          {loading && (<div className="lds-ellipsis"><div /><div /><div /><div /></div>)}
           <button type="submit">Submit</button>
         </form>
       </div>

@@ -19,7 +19,7 @@ Click the button on the bottom-right corner or type /admin in url
 * /app -- Include all the source code
   * /client -- Include all page of client side
   * /admin -- Include all page of admin side
-  * /api2 -- Include all the api
+  * /api -- Include all the api
 * /lib -- for some helper fuction
 * /prisma -- Use ORM to help access to database
 * /styles -- Include all the css

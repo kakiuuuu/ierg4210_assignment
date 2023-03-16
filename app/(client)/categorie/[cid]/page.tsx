@@ -44,3 +44,5 @@ export async function generateStaticParams() {
   const categories = await prisma.categorie.findMany()
   return categories.map((categorie) => ({ cid:categorie.cid.toString()}))
 }
+
+export const revalidate = 60

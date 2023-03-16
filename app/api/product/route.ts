@@ -1,11 +1,8 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
 import { NextResponse } from 'next/server'
-
 import { prisma } from '@/prisma/client';
 
-
 export async function GET(
-  req: NextApiRequest,
+  request: Request,
 ) {
   try {
     const productsRc = await prisma.product.findMany({
@@ -16,3 +13,5 @@ export async function GET(
     return NextResponse.json(error)
   }
 }
+
+export const revalidate = 10

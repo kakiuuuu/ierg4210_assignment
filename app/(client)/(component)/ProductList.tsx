@@ -17,8 +17,9 @@ export default function ProductList(props: Props) {
   const [products, setProducts] = useState<Product[]>(props.products || [])
 
   async function getProducts() {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api2/product`)
-    const results:Product[] = await response.json();
+    await new Promise((resolve) => setTimeout(resolve, 1000))
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product`)
+    const results: Product[] = await response.json();
     setProducts((prev) => [...prev, ...results]);
   }
   return (
@@ -27,7 +28,7 @@ export default function ProductList(props: Props) {
       dataLength={products?.length || 0}
       next={getProducts}
       hasMore={pathname === '/'}
-      loader={<h4>Loading...</h4>}
+      loader={<div className="lds-ellipsis"><div /><div /><div /><div /></div>}
     >
       <div className="productsGrid">
 

@@ -2,11 +2,6 @@ import type { Product, Categorie } from '@/typings'
 import Link from 'next/link';
 import { prisma } from '@/prisma/client';
 
-export const metadata = {
-  title: 'Admin Panel',
-  description: 'The admin panel to manage the eshop'
-}
-
 async function getProducts() {
   const products: Product[] = await prisma.product.findMany({
     include: {
@@ -56,3 +51,5 @@ export default async function AdminPage() {
     </main >
   )
 }
+
+export const revalidate = 10

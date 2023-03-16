@@ -57,3 +57,5 @@ export async function generateStaticParams() {
   const products: Product[] = await prisma.product.findMany()
   return products.map((product) => ({ pid: product.pid.toString() }))
 }
+
+export const revalidate = 60
