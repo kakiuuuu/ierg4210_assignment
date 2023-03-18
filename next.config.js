@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const path = require('path');
+import path from 'path';
 
 const nextConfig = {
   experimental: {
@@ -13,4 +13,4 @@ const nextConfig = {
   // },
 }
 
-module.exports = nextConfig
+export default nextConfig

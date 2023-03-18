@@ -2,12 +2,14 @@
   "name": "ierg4210_assignment",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "debug": "NODE_OPTIONS='--inspect-brk' next dev"
+    "debug": "NODE_OPTIONS='--inspect-brk' next dev",
+    "seed": "node prisma/seed.js"
   },
   "dependencies": {
     "@prisma/client": "^4.10.1",
