@@ -17,7 +17,7 @@ export default function ProductForm({ product, categories }: Props) {
   const [file, setFile] = useState<File | null>(null)
   const uploadFileRef = useRef<HTMLInputElement>(null)
   const [imageUrl, setImageUrl] = useState<string | null>('');
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<Product | any>({
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<Product>({
     values: {
       pid: product?.pid ? product.pid : 0,
       name: product?.name ? product.name : '',
@@ -25,7 +25,7 @@ export default function ProductForm({ product, categories }: Props) {
       desc: product?.desc ? product.desc : '',
       inventory: product?.inventory ? product.inventory : 0,
       price: product?.price ? product.price : 0,
-      image: product?.image ? product.image : '/product'
+      image: product?.image ? product.image : ''
     },
   });
   // console.log('imageUrl>>>>>', imageUrl)
