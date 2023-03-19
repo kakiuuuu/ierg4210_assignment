@@ -12,7 +12,7 @@ module.exports = {
       repo: 'git@github.com:kakiufong/ierg4210_assignment.git',
       path: '/home/ubuntu',
       'pre-deploy-local': '',
-      'post-deploy': 'source ~/.nvm/nvm.sh && npm install && npm run build && pm2 reload ecosystem.config.js --env production',
+      'post-deploy': 'source ~/.nvm/nvm.sh && npm ci && npm run build && pm2 reload ecosystem.config.cjs --env production',
       'pre-setup': '',
       'ssh_options': 'ForwardAgent=yes'
     }
