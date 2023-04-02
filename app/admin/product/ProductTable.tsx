@@ -2,7 +2,7 @@
 import type { Categorie, Product } from '@/typings'
 import ProductForm from './ProductForm';
 
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/navigation';
 type Props = {
   categories: Categorie[]
@@ -22,9 +22,9 @@ export default  function ProductTable({ products, categories }: Props) {
   return (
     <>
       <section>
-        <h4>Categorie List</h4>
+        <h4>Product List</h4>
         <button onClick={()=> {setSelectedItem(null)}}>Add new</button>
-        <div className="table">
+        <div className="productTable">
           <h4>Operation</h4>
           <h4>ID</h4>
           <h4>Name</h4>
@@ -33,7 +33,7 @@ export default  function ProductTable({ products, categories }: Props) {
           <h4>Inventory</h4>
           {products?.map((product) => {
             return (
-              <>
+              <React.Fragment key={product.pid}>
                 <div className="buttonGrp">
                   <button onClick={()=> {setSelectedItem(product)}}>Edit</button>
                   <button onClick={()=> {handleDelete(product.pid)}}>Delete</button>
@@ -43,7 +43,7 @@ export default  function ProductTable({ products, categories }: Props) {
                 <p>{product.categorie?.name}</p>
                 <p>{product.price}</p>
                 <p>{product.inventory}</p>
-              </>
+              </React.Fragment>
             )
           })}
         </div>

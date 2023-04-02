@@ -82,29 +82,27 @@ button {
   background-color: #e6e7e9;
   margin: 0.25rem;
 }
-.table {
+
+@mixin table($columns){
   display: grid;
-  grid-template-columns: repeat(6, minmax(20px, 1fr));;
-  // border: 1px solid rgba(0, 0, 0, 0.8);
+  grid-template-columns: repeat($columns, minmax(20px, 1fr));;
   border-radius: 1rem;
   padding: 1rem;
-  text-align: center;
+  align-items: center;
   h4 {
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-
   }
 }
-.categorieTable {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(20px, 1fr));;
-  // border: 1px solid rgba(0, 0, 0, 0.8);
-  border-radius: 1rem;
-  padding: 1rem;
-  text-align: center;
-  h4 {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 
-  }
+.productTable {
+  @include table(6);
+}
+.categorieTable {
+  @include table(3);
+}
+
+.userTable {
+  @include table(4);
 }
 
 label {

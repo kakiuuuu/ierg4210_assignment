@@ -2,7 +2,7 @@
 import type { Categorie } from '@/typings'
 import CategorieForm from './CategorieForm';
 
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/navigation';
 type Props = {
   categories: Categorie[]
@@ -29,7 +29,7 @@ export default function CategorieTable({ categories }: Props) {
           <h4>Name</h4>
           {categories?.map((categorie) => {
             return (
-              <>
+              <React.Fragment key={categorie.cid}>
                 <div className="buttonGrp">
                   <button onClick={() => { setSelectedItem(categorie) }}>Edit</button>
                   <button onClick={() => { handleDelete(categorie.cid) }}>Delete</button>
@@ -37,7 +37,7 @@ export default function CategorieTable({ categories }: Props) {
                 <p>{categorie.cid}</p>
                 <p>{categorie.name}</p>
                 {/* TODO: add number of cat */}
-              </>
+              </React.Fragment>
             )
           })}
         </div>

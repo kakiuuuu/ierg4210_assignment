@@ -60,4 +60,18 @@ const products = [
   },
 ];
 
-export { products, categories};
+const user = [
+  {
+    username: 'admin',
+    pw: '1155143596',
+    admin: true,
+    salt: '',
+  },
+  {
+    username: 'guest',
+    pw: 'guest',
+    admin: false,
+    salt: '',
+  },
+];
+export { products, categories, user };

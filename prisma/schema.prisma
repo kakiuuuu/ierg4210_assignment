@@ -31,3 +31,12 @@ model Categorie {
 
   @@unique([name])
 }
+
+model User {
+  uid           Int       @id @default(autoincrement())
+  username      String?   @unique
+  email         String?   @unique
+  pw            String    @db.Text
+  salt          String    @db.Text
+  admin         Boolean   @default(false)
+}

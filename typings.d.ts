@@ -14,3 +14,12 @@ export type Product = {
   inventory: number,
   categorie?: Categorie
 };
+
+export type User = {
+  uid: number
+  username?: string | null
+  email?: string | null
+  pw: string
+  salt: string
+  admin?: boolean
+}

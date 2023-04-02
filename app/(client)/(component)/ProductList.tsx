@@ -18,7 +18,7 @@ export default function ProductList(props: Props) {
 
   async function getProducts() {
     await new Promise((resolve) => setTimeout(resolve, 1000))
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product`)
+    const response = await fetch(`/api/product`)
     const results: Product[] = await response.json();
     setProducts((prev) => [...prev, ...results]);
   }
