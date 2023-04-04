@@ -29,7 +29,7 @@ export default async function Categorie(props: Props) {
   }
   const { products } = categorie
   return (
-    <main>
+    <main className='clientPageMain'>
       <h3>
         <Link href={'/'}>Home</Link>
         {' > '}

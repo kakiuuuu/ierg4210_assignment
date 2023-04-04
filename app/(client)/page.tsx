@@ -11,7 +11,7 @@ async function getProducts() {
 export default async function Home() {
   const products = await getProducts()
   return (
-    <main>
+    <main className='clientPageMain'>
       <h3>Home</h3>
       <ProductList products={products} />
     </main>

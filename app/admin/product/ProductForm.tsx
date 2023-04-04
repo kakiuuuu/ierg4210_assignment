@@ -35,7 +35,7 @@ export default function ProductForm({ product, categories }: Props) {
     if (product) {
       setImageUrl(process.env.NEXT_PUBLIC_BUCKET_URL + product.image)
     }
-  }, [product])
+  }, [product, reset])
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();

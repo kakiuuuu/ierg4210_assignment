@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/prisma/client';
 import { sign } from "jsonwebtoken";
-// import { serialize } from "cookie";
 
 const secret = process.env.JWT_SECRET!;
 

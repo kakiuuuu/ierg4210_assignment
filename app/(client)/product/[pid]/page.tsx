@@ -29,7 +29,7 @@ const ProductPage = async (props: Props) => {
     notFound();
   }
   return (
-    <main >
+    <main className='clientPageMain'>
       <h3>
         <Link href={'/'}>Home</Link>
         {' > '}

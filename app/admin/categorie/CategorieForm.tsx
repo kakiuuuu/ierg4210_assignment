@@ -20,7 +20,7 @@ export default function ProductForm({ categorie }: Props) {
 
   useEffect(() => {
     reset()
-  }, [categorie])
+  }, [categorie, reset])
 
   const onSubmit: SubmitHandler<Categorie> = async (_formData) => {
     setLoading(true)

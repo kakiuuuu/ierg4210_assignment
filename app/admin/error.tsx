@@ -15,7 +15,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <main>
+    <main className='adminPageMain'>
       <h2>Something went wrong!</h2>
       <button
         onClick={

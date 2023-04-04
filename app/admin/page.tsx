@@ -20,7 +20,7 @@ export default async function AdminPage() {
   const [products, categories] = await Promise.all([productsPromise, categoriesPromise])
 
   return (
-    <main>
+    <main className='adminPageMain'>
       <h3>Dashboard</h3>
       <div className="sectionContainer">
         <Link href={'/admin/product'}>

@@ -19,7 +19,6 @@ const SideBar = (props: Props) => {
           <Link href={"/"}><li>Go Back</li></Link>
         </ul>
       </nav>
-
     </aside>
   )
 }

@@ -64,12 +64,14 @@ const user = [
   {
     username: 'admin',
     pw: '1155143596',
+    email: 'admin@test.com',
     admin: true,
     salt: '',
   },
   {
     username: 'guest',
     pw: 'guest',
+    email: 'guest@test.com',
     admin: false,
     salt: '',
   },

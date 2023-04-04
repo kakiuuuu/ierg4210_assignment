@@ -11,7 +11,7 @@ export default async function UserPage() {
   const users = await getUsers()
 
   return (
-    <main>
+    <main className='adminPageMain'>
       <h3>User</h3>
       <UserTable users={users} />
     </main>

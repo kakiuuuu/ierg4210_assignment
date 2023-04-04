@@ -11,7 +11,7 @@ export default async function CategoriePage() {
   const categories = await getCategories()
 
   return (
-    <main>
+    <main className='adminPageMain'>
       <h3>Categorie</h3>
       <CategorieTable categories={categories} />
     </main>

@@ -21,7 +21,7 @@ export default async function ProductPage() {
   const [products, categories]: [Product[], Categorie[]] = await Promise.all([productsData, categoriesData])
 
   return (
-    <main>
+    <main className='adminPageMain'>
       <h3>Product</h3>
       <ProductTable products={products} categories={categories} />
     </main>

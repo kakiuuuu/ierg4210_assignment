@@ -6,7 +6,8 @@ $text-secondary: #ececec;
 $bg-primary: #23232e;
 $bg-secondary: #141418;
 $transition-speed: 600ms;
-body {
+
+.adminPageBody {
   font-family: $font-Sans;
   background-color: #e6e7e9;
   display: grid;
@@ -17,7 +18,7 @@ body {
   grid-template-rows: 4rem 1fr;
 }
 
-main {
+.adminPageMain {
   overflow-y:scroll;
   height: 100vh;
   .sectionContainer {
@@ -32,12 +33,6 @@ section {
   height: max-content;
   min-width: 30vw;
   background-color: rgba(255, 255, 255, 0.877);
-}
-
-.header {
-  grid-area: header;
-  background-color: #e6e7e9;
-  margin: 1rem;
 }
 
 .sideBar {

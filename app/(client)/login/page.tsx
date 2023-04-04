@@ -42,7 +42,7 @@ const LoginPage = (props: Props) => {
 
 
   return (
-    <main>
+    <main className='clientPageMain'>
       <h4>{`Login`}</h4>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>Username</label>

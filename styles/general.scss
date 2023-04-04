@@ -3,13 +3,13 @@ $border-radius: 2px;
 $font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Roboto Mono", "Oxygen Mono",
   "Ubuntu Monospace", "Source Code Pro", "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
 
-body {
+.clientPageBody {
   color: rgb(0, 0, 0);
   font-family: $font-mono;
   background: #f3f3f3;
 }
 
-main {
+.clientPageMain {
   padding: 5rem;
   min-height: 100vh;
 }
