@@ -2,6 +2,7 @@ import TopNav from './TopNav'
 import Image from 'next/image'
 import Link from 'next/link'
 import Cart from './Cart'
+import UserInfo from './UserInfo'
 
 
 const Header = () => {
@@ -12,7 +13,10 @@ const Header = () => {
       </Link>
       {/* @ts-ignore */}
       <TopNav />
-      <Cart />
+      <div>
+        <UserInfo />
+        <Cart />
+      </div>
     </header>
   )
 }

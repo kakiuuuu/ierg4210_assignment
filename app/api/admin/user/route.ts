@@ -13,7 +13,7 @@ export async function POST(
         email,
         pw,
         salt: '',
-        admin: true
+        admin
       }
     })
     return NextResponse.json(postUser);

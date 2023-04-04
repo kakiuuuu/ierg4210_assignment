@@ -3,14 +3,14 @@ import { prisma } from '@/prisma/client';
 
 export async function PUT(
   request: Request,
-  { params }: { params: { uid: number } }
+  { params }: { params: { id: number } }
 ) {
   try {
-    let uid = Number(params.uid)
+    let id = Number(params.id)
     const body = await request.json();
     const { username } = body
     const putCategrie = await prisma.user.update({
-      where: { uid },
+      where: { id },
       data: { username }
     })
     return NextResponse.json(putCategrie);
@@ -21,12 +21,12 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { uid: number } }
+  { params }: { params: { id: number } }
 ) {
   try {
-    let uid = Number(params.uid)
+    let id = Number(params.id)
     const deleteCategrie = await prisma.user.delete({
-      where: { uid },
+      where: { id },
     })
     return NextResponse.json(deleteCategrie);
   } catch (error) {

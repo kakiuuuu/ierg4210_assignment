@@ -100,39 +100,8 @@ button {
 .categorieTable {
   @include table(3);
 }
-
 .userTable {
-  @include table(4);
-}
-
-label {
-  line-height: 2;
-  text-align: left;
-  display: block;
-
-  font-size: 14px;
-  font-weight: 200;
-}
-
-form {
-  > input, textarea, select{
-    display: inline-block;
-    border: 2px #141418 solid;
-    padding: 0.5rem;
-    border-radius: 0.25rem;
-  }
-  >*:last-child{
-    display: block;
-    margin-top: 1rem;
-  }
-  span {
-    color: #bf1650;
-    &::before {
-      display: inline-block;
-      margin-left: 1rem;
-      content: "⚠";
-    }
-  }
+  @include table(5);
 }
 
 .uploadImage {

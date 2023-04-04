@@ -1,10 +1,10 @@
-export type Categorie = {
+export interface Categorie {
   cid: number,
   name: string,
   products?: Product[]
 };
 
-export type Product = {
+export interface Product {
   pid: number,
   cid: number,
   name: string,
@@ -15,8 +15,8 @@ export type Product = {
   categorie?: Categorie
 };
 
-export type User = {
-  uid: number
+export interface User {
+  id: number
   username?: string | null
   email?: string | null
   pw: string

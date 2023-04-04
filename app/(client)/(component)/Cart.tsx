@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '@/store/hooks'
-import { selectCart, removeFromCart, changeQuantity, getTotalPrice } from '@/store/reducer'
+import { selectCart, removeFromCart, changeQuantity, getTotalPrice } from '@/store/reducer/cart'
 
 const Cart = () => {
   const totalPrice = useAppSelector(getTotalPrice)

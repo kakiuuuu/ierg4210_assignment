@@ -13,21 +13,22 @@ export default function ProductForm({ user }: Props) {
   const router = useRouter()
   const { register, handleSubmit, reset, formState: { errors } } = useForm<User | any>({
     values: {
-      uid: user?.uid ? user.uid : null,
+      id: user?.id ? user.id : null,
       username: user?.username ? user.username : "",
       email: user?.email ? user.email : "",
       pw: user?.pw ? user.pw : "",
+      admin: false
     },
   });
 
   useEffect(() => {
     reset()
-  }, [user])
+  }, [user, reset])
 
   const onSubmit: SubmitHandler<User> = async (_formData) => {
     setLoading(true)
-    if (user?.uid) {
-      const putUser = await fetch(`/api/admin/user/${user?.uid}`, {
+    if (user?.id) {
+      const putUser = await fetch(`/api/admin/user/${user?.id}`, {
         method: "PUT",
         body: JSON.stringify({ ..._formData }),
       });
@@ -44,7 +45,7 @@ export default function ProductForm({ user }: Props) {
   return (
     <section>
       <div>
-        <h4>{user ? `Edit User ${user.uid}` : `Add new User`}</h4>
+        <h4>{user ? `Edit User ${user.id}` : `Add new User`}</h4>
         <form onSubmit={handleSubmit(onSubmit)}>
           <label>User Name</label>
           <input {...register("username", { required: true })} />
@@ -55,6 +56,8 @@ export default function ProductForm({ user }: Props) {
           <label>Password</label>
           <input {...register("pw", { required: true })} />
           {errors.pw && <span>This field is required</span>}
+          <label>Admin</label>
+          <input type="checkbox" placeholder="Admin" {...register("admin", {})} />
           {loading && (<div className="lds-ellipsis"><div /><div /><div /><div /></div>)}
           <button type="submit">Submit</button>
         </form>

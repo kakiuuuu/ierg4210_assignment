@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from '@reduxjs/toolkit'
-import type { RootState } from './store'
+import type { RootState } from '../store'
 
 interface appState {
   cartItems: { pid: number, quantity: number, name: string, price: number }[]
@@ -10,7 +10,7 @@ const initialState: appState = {
   cartItems: [],
 };
 
-export const appSlice = createSlice({
+export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
@@ -41,7 +41,7 @@ export const appSlice = createSlice({
   },
 });
 
-export const { addToCart, removeFromCart, changeQuantity } = appSlice.actions;
+export const { addToCart, removeFromCart, changeQuantity } = cartSlice.actions;
 export const getTotalPrice = (state: RootState)=> {
   const totalPrice = state.cart.cartItems.reduce((accumulator, item) => {
     return accumulator + item.price * item.quantity;
@@ -49,4 +49,4 @@ export const getTotalPrice = (state: RootState)=> {
   return totalPrice.toFixed(2);
 }
 export const selectCart = (state: RootState) => state.cart.cartItems
-export default appSlice.reducer;
+export default cartSlice.reducer;

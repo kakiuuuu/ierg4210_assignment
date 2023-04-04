@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import { useAppSelector, useAppDispatch } from '@/store/hooks'
-import { addToCart } from '@/store/reducer'
+import { addToCart } from '@/store/reducer/cart'
 import type { Product } from '@/typings'
 type Props = {
   product: Product,

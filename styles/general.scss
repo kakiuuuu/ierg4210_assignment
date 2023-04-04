@@ -44,10 +44,27 @@ main {
   }
 }
 
+.userInfo {
+  display: inline-block;
+  > div {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+}
 .shoppingCart {
+  display: inline-block;
   cursor: default;
   position: relative;
   padding: 1rem;
+  input {
+    border: none;
+    border-radius: $border-radius;
+    font-weight: bold;
+    padding: 0.5rem;
+    width: 20%;
+    margin: 1px 1rem;
+  }
   .cartList {
     border-radius: $border-radius;
     padding: 2rem;
@@ -128,14 +145,6 @@ main {
   background-color: aqua;
 }
 
-input {
-  border: none;
-  border-radius: $border-radius;
-  font-weight: bold;
-  padding: 0.5rem;
-  width: 20%;
-  margin: 1px 1rem;
-}
 
 .dot {
   border-radius: 50%;
