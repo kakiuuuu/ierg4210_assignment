@@ -20,6 +20,7 @@ model Product {
   image     String
   inventory Int
   categorie Categorie @relation(fields: [cid], references: [cid])
+  orderItem OrderItem[]
 
   @@index([cid])
 }
@@ -39,4 +40,29 @@ model User {
   pw            String    @db.Text
   salt          String    @db.Text
   admin         Boolean   @default(false)
+  orders        Order[]
+}
+
+model Order {
+  oid       Int       @id @default(autoincrement())
+  uid       Int
+  date      DateTime
+  total     Float
+  user      User      @relation(fields: [uid], references: [id])
+  orderItems OrderItem[]
+
+  @@index([uid])
+}
+
+model OrderItem {
+  id        Int      @id @default(autoincrement())
+  oid       Int
+  pid       Int
+  quantity  Int
+  status    String   @default("pending")
+  order     Order    @relation(fields: [oid], references: [oid])
+  product   Product  @relation(fields: [pid], references: [pid])
+
+  @@index([oid])
+  @@index([pid])
 }

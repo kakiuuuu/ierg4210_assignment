@@ -12,9 +12,9 @@ export default function AdminLayout({
   children: React.ReactNode
 }) {
   return (
-    <body className='adminPageBody'>
+    <div className='adminPageBody'>
       <SideBar />
       {children}
-    </body>
+    </div>
   )
 }

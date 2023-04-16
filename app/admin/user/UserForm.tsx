@@ -54,7 +54,7 @@ export default function ProductForm({ user }: Props) {
           <input {...register("email", { required: true })} />
           {errors.email && <span>This field is required</span>}
           <label>Password</label>
-          <input {...register("pw", { required: true })} />
+          <input type="password" {...register("pw", { required: true })} />
           {errors.pw && <span>This field is required</span>}
           <label>Admin</label>
           <input type="checkbox" placeholder="Admin" {...register("admin", {})} />

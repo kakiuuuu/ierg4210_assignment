@@ -138,3 +138,31 @@ form {
     }
   }
 }
+
+section {
+  border-radius: 0.5rem;
+  margin: 1rem;
+  padding: 1rem;
+  height: max-content;
+  min-width: 25vw;
+  background-color: rgba(255, 255, 255, 0.877);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  &:hover {
+    background-color: rgba(255, 255, 255, 1);
+  }
+}
+.table {
+  padding: 1rem;
+  th {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  }
+  // > tbody {
+  //   tr:nth-child(even) {
+  //     background: #eee;
+  //   }
+  // }
+  td {
+    padding: 1rem;
+  }
+}

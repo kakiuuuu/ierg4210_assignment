@@ -18,13 +18,18 @@ const UserInfo = () => {
 
   return (
     <div className='userInfo'>
-      {user ? (
-        <div>
-          <p>{`hi~ ${user.username}`}</p>
-          <Link href={'/'} onClick={() => handleLogout()}>Logout |</Link>
-        </div>
+      {user?.username ? (
+        <>
+          <p>hi~ {user.username}</p>
+          <div className='userMenu'>
+            <Link href={`/user/${user.id}`}>My Account</Link>
+            <Link href={`/`}>Change Password</Link> 
+            {user.admin && <Link href={'/admin'}>Admin Panel</Link>}
+            <Link href={'/'} onClick={() => handleLogout()}>Logout</Link>
+          </div>
+        </>
       ) : (
-      <Link href={'/login'} >Login |</Link>
+      <Link href={'/login'} >Login</Link>
       )}
     </div>
   )

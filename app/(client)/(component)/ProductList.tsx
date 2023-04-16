@@ -36,7 +36,7 @@ export default function ProductList(props: Props) {
           return (
             <div className="card" key={product.pid * 1000 + i}>
               <Link href={`/product/${product.pid}`}>
-                <Image src={`${process.env.NEXT_PUBLIC_BUCKET_URL}${product.image}`} width={236} height={142} alt={product.name} />
+                <Image src={`${process.env.NEXT_PUBLIC_BUCKET_URL}${product.image}`} width={236} height={142} alt={product.name} priority />
                 <h2>{product.name}</h2>
                 <p>${product.price}</p>
                 <AddToCart product={product} />

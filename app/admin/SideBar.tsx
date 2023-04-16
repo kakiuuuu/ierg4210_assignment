@@ -16,6 +16,7 @@ const SideBar = (props: Props) => {
           <Link href={"/admin/product"}><li>Product</li></Link>
           <Link href={"/admin/categorie"}><li>Categorie</li></Link>
           <Link href={"/admin/user"}><li>User</li></Link>
+          <Link href={"/admin/order"}><li>Order</li></Link>
           <Link href={"/"}><li>Go Back</li></Link>
         </ul>
       </nav>

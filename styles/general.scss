@@ -1,5 +1,5 @@
 $max-width: 1100px;
-$border-radius: 2px;
+$border-radius: 8px;
 $font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Roboto Mono", "Oxygen Mono",
   "Ubuntu Monospace", "Source Code Pro", "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
 
@@ -16,11 +16,11 @@ $font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Robo
 
 .header,
 .footer {
-  padding: 2rem;
+  padding: 0rem 1.5rem;
   position: sticky;
   background-color: #251f21;
   color: #ffffff;
-  min-height: 15vh;
+  min-height: 12vh;
   width: 100vw;
 }
 
@@ -31,6 +31,7 @@ $font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Robo
 }
 
 .footer {
+  padding: 1rem 1.5rem;
   display: flex;
   justify-content: space-between;
 }
@@ -41,47 +42,77 @@ $font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Robo
   li {
     padding: 0 1rem;
     font-weight: 100;
+    &:hover {
+      color: rgb(82, 84, 86);
+    }
   }
 }
 
 .userInfo {
+  padding: 1rem;
   display: inline-block;
-  > div {
+  cursor: pointer;
+  position: relative;
+  &:hover {
+    color: rgb(82, 84, 86);
+  }
+  .userMenu {
+    display: none;
+    position: absolute;
+    top: 3rem;
+    right: 0rem;
+    width: max-content;
+    background-color: rgb(82, 84, 86);
+    color: #ffffff;
+    font-weight: 500;
+    padding: 1rem;
+    border-radius: $border-radius;
+    z-index: 1;
+  }
+  &:hover .userMenu {
     display: flex;
+    flex-direction: column;
     align-items: center;
     gap: 1rem;
+
   }
 }
+
 .shoppingCart {
   display: inline-block;
-  cursor: default;
+  cursor: pointer;
   position: relative;
   padding: 1rem;
-  input {
-    border: none;
-    border-radius: $border-radius;
-    font-weight: bold;
-    padding: 0.5rem;
-    width: 20%;
-    margin: 1px 1rem;
+  &:hover {
+    color: rgb(82, 84, 86);
   }
   .cartList {
+    cursor: default;
     border-radius: $border-radius;
     padding: 2rem;
     position: absolute;
     top: 3rem;
     right: 0rem;
     width: max-content;
-    background-color: rgb(147, 149, 151);
+    background-color: rgb(82, 84, 86);
     color: #ffffff;
     font-weight: 500;
     display: none;
+    input {
+      border: none;
+      border-radius: $border-radius;
+      font-weight: bold;
+      padding: 0.5rem;
+      width: 20%;
+      margin: 1px 1rem;
+    }
   }
   &:hover .cartList {
-    z-index: 0;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     .cartItem {
+      z-index: 1;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -100,16 +131,13 @@ $font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Robo
   // width: 50%;
   padding: 1rem 1.2rem;
   align-items: center;
-  transition: background 200ms, border 200ms;
+  // transition: background 200ms, border 200ms;
   h2 {
     font-weight: 600;
     margin-bottom: 0.7rem;
   }
   p {
-    position: relative;
-    z-index: -1;
     margin: 0;
-    opacity: 0.6;
     font-size: 0.9rem;
     line-height: 1.5;
     max-width: 30ch;

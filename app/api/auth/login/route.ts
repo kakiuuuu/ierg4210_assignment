@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/prisma/client';
 import { sign } from "jsonwebtoken";
+import * as bcrypt from 'bcrypt';
 
 const secret = process.env.JWT_SECRET!;
 
@@ -19,7 +20,7 @@ export async function POST(
         status: 404,
       });
     }
-    if (userRc.pw !== password) {
+    if (!(await bcrypt.compare(password, userRc.pw))) {
       return NextResponse.json({ error: "Password is incorrect" }, {
         status: 401,
       });

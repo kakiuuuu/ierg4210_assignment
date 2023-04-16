@@ -14,10 +14,17 @@ async function getCategories() {
   const categories: Categorie[]  = await prisma.categorie.findMany()
   return categories
 }
+
+async function getOrdersCount() {
+  const ordersCount = await prisma.order.count()
+  return ordersCount
+}
+
 export default async function AdminPage() {
   const productsPromise = getProducts()
   const categoriesPromise = getCategories()
-  const [products, categories] = await Promise.all([productsPromise, categoriesPromise])
+  const ordersPromise = getOrdersCount()
+  const [products, categories, ordersCount] = await Promise.all([productsPromise, categoriesPromise, ordersPromise])
 
   return (
     <main className='adminPageMain'>
@@ -45,6 +52,12 @@ export default async function AdminPage() {
                 </div>
               );
             })}
+          </section>
+        </Link>
+        <Link href={'/admin/order'}>
+          <section>
+            <h4>Order Count</h4>
+            <h1>{ordersCount}</h1>
           </section>
         </Link>
       </div>

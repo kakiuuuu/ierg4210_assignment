@@ -13,10 +13,10 @@ export default function ClientLayout({
   children: React.ReactNode
 }) {
   return (
-    <body className='clientPageBody'>
+    <div className='clientPageBody'>
       <Header />
         {children}
       <Footer />
-    </body>
+    </div>
   )
 }

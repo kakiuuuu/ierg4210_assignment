@@ -4,20 +4,28 @@ import UserReducer  from './reducer/user'
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
 import thunk from 'redux-thunk';
+import expireReducer from 'redux-persist-expire';
 
-const persistConfig1 = {
+const cartPersistConfig = {
   key: 'cart',
   storage,
 }
 
-const persistConfig2 = {
+const UserpersistConfig = {
   key: 'user',
   storage,
+  transforms: [
+    expireReducer('user', {
+      expireSeconds: 60 * 60 * 24 * 3,
+      expiredState: null,
+      autoExpire: true,
+      }),
+    ]
 }
 export const store = configureStore({
   reducer: {
-    cart: persistReducer(persistConfig1, cartReducer),
-    user: persistReducer(persistConfig2, UserReducer),
+    cart: persistReducer(cartPersistConfig, cartReducer),
+    user: persistReducer(UserpersistConfig, UserReducer),
   },
   devTools: process.env.NODE_ENV !== 'production',
   middleware: [thunk]

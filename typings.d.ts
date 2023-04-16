@@ -23,3 +23,19 @@ export interface User {
   salt: string
   admin?: boolean
 }
+
+export interface Order {
+  oid: number,
+  uid: number,
+  date: Date | String,
+  total: number,
+  orderItems?: OrderItem[]
+}
+
+export interface OrderItem {
+  id: number,
+  pid: number,
+  quantity: number,
+  status: string,
+  product?: Product,
+}

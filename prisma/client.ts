@@ -12,4 +12,18 @@ export const prisma = globalForPrisma.prisma || new PrismaClient()
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
 
+prisma.$use(async (params, next) => {
+  const result = await next(params)
+  if (params.model == 'Order') {
+    if (params.action == 'findMany') {
+      // console.log('result>>>>', result)
+      result.forEach((order: { date: Date | String}) => {
+        // console.log('order.date>>>', order.date)
+        order.date = order.date.toLocaleString()
+      })
+    }
+  }
+  return result
+})
+
 export default prisma

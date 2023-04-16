@@ -12,10 +12,8 @@ $transition-speed: 600ms;
   background-color: #e6e7e9;
   display: grid;
   grid-template-areas:
-    "sideBar header"
-    "sideBar main ";
+    "sideBar main";
   grid-template-columns: minmax(150px, 25%) 1fr;
-  grid-template-rows: 4rem 1fr;
 }
 
 .adminPageMain {
@@ -23,17 +21,10 @@ $transition-speed: 600ms;
   height: 100vh;
   .sectionContainer {
     display: flex;
+    flex-wrap: wrap;
   }
 }
 
-section {
-  border-radius: 0.5rem;
-  margin: 1rem;
-  padding: 1rem;
-  height: max-content;
-  min-width: 30vw;
-  background-color: rgba(255, 255, 255, 0.877);
-}
 
 .sideBar {
   box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
