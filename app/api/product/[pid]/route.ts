@@ -1,10 +1,8 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
 import { NextResponse } from 'next/server'
-
 import { prisma } from '@/prisma/client';
 
 export async function GET(
-  req: NextApiRequest,
+  request: Request,
   { params }: { params: { pid: number } }
 ) {
   try {
