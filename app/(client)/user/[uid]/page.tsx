@@ -1,7 +1,3 @@
-
-// import { useAppSelector, useAppDispatch } from '@/store/hooks'
-// import { selectUser, setUser } from '@/store/reducer/user'
-// import { useRouter, useParams } from 'next/navigation';
 import prisma from '@/prisma/client';
 import { Order } from '@/typings';
 import OrderTable from '../../../admin/order/OrderTable';

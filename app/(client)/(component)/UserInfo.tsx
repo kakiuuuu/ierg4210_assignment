@@ -23,7 +23,7 @@ const UserInfo = () => {
           <p>hi~ {user.username}</p>
           <div className='userMenu'>
             <Link href={`/user/${user.id}`}>My Account</Link>
-            <Link href={`/`}>Change Password</Link> 
+            <Link href={`/user/${user.id}/changePassword`}>Change Password</Link> 
             {user.admin && <Link href={'/admin'}>Admin Panel</Link>}
             <Link href={'/'} onClick={() => handleLogout()}>Logout</Link>
           </div>

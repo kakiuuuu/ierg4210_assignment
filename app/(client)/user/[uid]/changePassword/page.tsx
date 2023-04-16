@@ -20,11 +20,34 @@ const UserPage = (props: Props) => {
     values: {
       password: '',
       newPassword: '',
+      repeatNewPassword: ''
     },
   });
 
   const onSubmit: SubmitHandler<any> = async (formData) => {
-    dispatch(setUser(null))
+    setLoading(true)
+    if (formData.newPassword !== formData.repeatNewPassword) {
+      setWarning('New passwords do not match')
+      setLoading(false)
+      return
+    }
+    if (formData.newPassword === formData.password) {
+      setWarning('New password cannot be the same as the old one')
+      setLoading(false)
+      return
+    }
+    const putUser = await fetch(`/api/auth/changePassword`, {
+      method: "PUT",
+      body: JSON.stringify({ ...formData, id: user?.id }),
+    });
+    const data = await putUser.json();
+    if (data.error) {
+      setWarning(data.error)
+    } else {
+      alert('Password changed')
+      dispatch(setUser(null))
+    }
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -42,7 +65,10 @@ const UserPage = (props: Props) => {
         <input type="password" {...register("password", { required: true, })} />
         {errors.password && <span>This field is required</span>}
         <label>New Password</label>
-        <input type="password" {...register("password", { required: true, })} />
+        <input type="password" {...register("newPassword", { required: true, })} />
+        {errors.password && <span>This field is required</span>}
+        <label>Repeat New Password</label>
+        <input type="password" {...register("repeatNewPassword", { required: true, })} />
         {errors.password && <span>This field is required</span>}
         {loading && (<div className="lds-ellipsis"><div /><div /><div /><div /></div>)}
         {warning && <span>{warning}</span>}
